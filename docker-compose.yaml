@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  api-gateway:
+    container_name: api-gateway
+    build:
+      context: ./api-gateway/
+    command: "npm run start:dev"
+    ports:
+      - 8000:3000
+    volumes:
+      - ./api-gateway/:/app
+    networks:
+      - pfa
+
+networks:
+  pfa:
