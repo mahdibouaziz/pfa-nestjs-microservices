@@ -12,5 +12,41 @@ services:
     networks:
       - pfa
 
+  appointment:
+    container_name: appointment
+    build:
+      context: ./appointment/
+    command: "npm run start:dev"
+    ports:
+      - 8001:3000
+    volumes:
+      - ./appointment/:/app
+    networks:
+      - pfa
+
+  auth:
+    container_name: auth
+    build:
+      context: ./auth/
+    command: "npm run start:dev"
+    ports:
+      - 8002:3000
+    volumes:
+      - ./auth/:/app
+    networks:
+      - pfa
+
+  chat:
+    container_name: chat
+    build:
+      context: ./chat/
+    command: "npm run start:dev"
+    ports:
+      - 8003:3000
+    volumes:
+      - ./chat/:/app
+    networks:
+      - pfa
+
 networks:
   pfa:
