@@ -12,7 +12,7 @@ export class AppController {
   }
 
   // listen to event
-  @EventPattern('list_event')
+  @EventPattern('auth_event')
   async listEvent(data) {
     console.log('Event listening: ', data);
   }

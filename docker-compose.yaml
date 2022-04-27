@@ -30,7 +30,7 @@ services:
       context: ./auth/
     command: "npm run start:dev"
     ports:
-      - 8002:3001
+      - 8002:3000
     volumes:
       - ./auth/:/app
     networks:
