@@ -48,5 +48,22 @@ services:
     networks:
       - pfa
 
+  rabbitmq:
+    # default username and password are 'guest'
+    container_name: rabbitmq
+    image: rabbitmq:3.9.15-management-alpine
+    ports:
+      - "5672:5672" # Port for microservices applicaiton to connect to
+      - "15672:15672" # Port for management UI interface
+    volumes:
+      - rabbitmqPfaData:/var/lib/rabbitmq/
+      - rabbitmqPfaLog:/var/log/rabbitmq
+    networks:
+      - pfa
+
 networks:
   pfa:
+
+volumes:
+  rabbitmqPfaData:
+  rabbitmqPfaLog:
