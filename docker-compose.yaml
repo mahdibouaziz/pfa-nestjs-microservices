@@ -18,7 +18,7 @@ services:
       context: ./appointment/
     command: "npm run start:dev"
     ports:
-      - 8001:3000
+      - 8001:3001
     volumes:
       - ./appointment/:/app
     networks:
@@ -30,7 +30,7 @@ services:
       context: ./auth/
     command: "npm run start:dev"
     ports:
-      - 8002:3000
+      - 8002:3001
     volumes:
       - ./auth/:/app
     networks:
@@ -42,7 +42,7 @@ services:
       context: ./chat/
     command: "npm run start:dev"
     ports:
-      - 8003:3000
+      - 8003:3001
     volumes:
       - ./chat/:/app
     networks:
