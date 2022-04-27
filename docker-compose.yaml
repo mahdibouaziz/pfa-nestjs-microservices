@@ -18,7 +18,7 @@ services:
       context: ./appointment/
     command: "npm run start:dev"
     ports:
-      - 8001:3001
+      - 8001:3000
     volumes:
       - ./appointment/:/app
     networks:
