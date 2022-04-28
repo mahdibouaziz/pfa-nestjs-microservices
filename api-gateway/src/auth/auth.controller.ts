@@ -4,6 +4,7 @@ import { PaginationParams } from 'src/pagination-utils/paginationParams';
 import { AuthService } from './auth.service';
 import { LoginDoctorDto } from './dto/login-doctor.dto';
 import { RegisterDoctorDto } from './dto/register-doctor.dto';
+import { RegisterPatientDto } from './dto/register-patient.dto';
 // import { LoginPatientDto } from './dto/login-patient.dto';
 // import { RegisterPatientDto } from './dto/register-patient.dto';
 
@@ -35,13 +36,13 @@ export class AuthController {
     return this.authService.getAllDoctors(skip, limit, filter, authorization);
   }
 
-  // @Post('/patient/register')
-  // async registerPatient(
-  //   @Body() registerPatientDto: RegisterPatientDto,
-  //   @GetAuthorization() authorization,
-  // ) {
-  //   return this.authService.registerPatient(registerPatientDto, authorization);
-  // }
+  @Post('/patient/register')
+  async registerPatient(
+    @Body() registerPatientDto: RegisterPatientDto,
+    @GetAuthorization() authorization,
+  ) {
+    return this.authService.registerPatient(registerPatientDto, authorization);
+  }
 
   // @Post('/patient/login')
   // async LoginPatient(
