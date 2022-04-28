@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { LoginDoctorDto } from './dto/login-doctor.dto';
+import { LoginPatientDto } from './dto/login-patient.dto';
 import { RegisterDoctorDto } from './dto/register-doctor.dto';
 import { RegisterPatientDto } from './dto/register-patient.dto';
 
@@ -95,26 +96,26 @@ export class AuthService {
     }
   }
 
-  // async loginPatient(loginPatientDto: LoginPatientDto, authorization) {
-  //   try {
-  //     let headers = {};
-  //     if (authorization) {
-  //       headers = {
-  //         authorization,
-  //       };
-  //     }
-  //     const response = await axios.post(
-  //       `${url}/patient/login`,
-  //       loginPatientDto,
-  //       {
-  //         headers,
-  //       },
-  //     );
-  //     // console.log(response.data);
-  //     return response.data;
-  //   } catch (error) {
-  //     console.log(error.response.data);
-  //     throw error.response.data;
-  //   }
-  // }
+  async loginPatient(loginPatientDto: LoginPatientDto, authorization) {
+    try {
+      let headers = {};
+      if (authorization) {
+        headers = {
+          authorization,
+        };
+      }
+      const response = await axios.post(
+        `${url}/patient/login`,
+        loginPatientDto,
+        {
+          headers,
+        },
+      );
+      // console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error.response.data);
+      throw error.response.data;
+    }
+  }
 }

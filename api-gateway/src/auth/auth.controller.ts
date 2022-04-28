@@ -3,6 +3,7 @@ import { GetAuthorization } from 'src/custom-decorators/get-authorization';
 import { PaginationParams } from 'src/pagination-utils/paginationParams';
 import { AuthService } from './auth.service';
 import { LoginDoctorDto } from './dto/login-doctor.dto';
+import { LoginPatientDto } from './dto/login-patient.dto';
 import { RegisterDoctorDto } from './dto/register-doctor.dto';
 import { RegisterPatientDto } from './dto/register-patient.dto';
 // import { LoginPatientDto } from './dto/login-patient.dto';
@@ -44,11 +45,11 @@ export class AuthController {
     return this.authService.registerPatient(registerPatientDto, authorization);
   }
 
-  // @Post('/patient/login')
-  // async LoginPatient(
-  //   @Body() loginPatientDto: LoginPatientDto,
-  //   @GetAuthorization() authorization,
-  // ) {
-  //   return this.authService.loginPatient(loginPatientDto, authorization);
-  // }
+  @Post('/patient/login')
+  async LoginPatient(
+    @Body() loginPatientDto: LoginPatientDto,
+    @GetAuthorization() authorization,
+  ) {
+    return this.authService.loginPatient(loginPatientDto, authorization);
+  }
 }

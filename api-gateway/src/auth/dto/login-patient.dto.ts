@@ -1,3 +1,4 @@
 export class LoginPatientDto {
-  firstname: string;
+  cin: string;
+  birthday: Date;
 }

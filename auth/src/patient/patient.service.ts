@@ -1,9 +1,14 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/mongoose';
 import { RegisterPatientDto } from './dto/register-patient.dto';
 import { Patient, PatientDocument } from './entities/patient.entity';
 import { Model } from 'mongoose';
+import { LoginPatientDto } from './dto/login-patient.dto';
 
 @Injectable()
 export class PatientService {
@@ -38,5 +43,19 @@ export class PatientService {
     });
     await patient.save();
     return { message: 'Patient Created', patient };
+  }
+  async loginPatiet(loginPatientDto: LoginPatientDto) {
+    // get the patient
+    const patient = await this.findPatientByCinAndBirthday(
+      loginPatientDto.cin,
+      loginPatientDto.birthday,
+    );
+    if (!patient) {
+      throw new UnauthorizedException('Invalid Credentials');
+    }
+
+    const payload = { cin: patient.cin, birthday: patient.birthday };
+    const accessToken = await this.jwtService.sign(payload);
+    return { accessToken };
   }
 }
