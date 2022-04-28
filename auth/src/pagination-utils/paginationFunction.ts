@@ -28,7 +28,7 @@ export const paginationFuntion = async (
     .limit(limitOfDocuments);
 
   const totalItems = await model.count(query);
-  const totalPages = Math.round(totalItems / limitOfDocuments);
+  const totalPages = Math.floor(totalItems / limitOfDocuments) + 1;
 
   return {
     data,
