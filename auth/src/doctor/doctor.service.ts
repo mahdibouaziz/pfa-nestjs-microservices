@@ -80,4 +80,23 @@ export class DoctorService {
     const accessToken = await this.jwtService.sign(payload);
     return { accessToken };
   }
+
+  async getAllDoctors(pagesToSkip = 0, limitOfDocuments = 15) {
+    // this must returns: data, totalItems, totalPages
+    pagesToSkip = pagesToSkip * limitOfDocuments;
+    const data = await this.doctorModel
+      .find()
+      .sort({ _id: 1 })
+      .skip(pagesToSkip)
+      .limit(limitOfDocuments);
+
+    const totalItems = await this.doctorModel.count();
+    const totalPages = Math.round(totalItems / limitOfDocuments);
+
+    return {
+      data,
+      totalItems,
+      totalPages,
+    };
+  }
 }

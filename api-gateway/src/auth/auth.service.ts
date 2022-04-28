@@ -11,13 +11,17 @@ const url = 'http://auth:3000';
 export class AuthService {
   async registerDoctor(registerDoctorDto: RegisterDoctorDto, authorization) {
     try {
+      let headers = {};
+      if (authorization) {
+        headers = {
+          authorization,
+        };
+      }
       const response = await axios.post(
         `${url}/doctor/register`,
         registerDoctorDto,
         {
-          headers: {
-            authorization: authorization,
-          },
+          headers,
         },
       );
       // console.log(response.data);
@@ -30,11 +34,37 @@ export class AuthService {
 
   async loginDoctor(loginDoctorDto: LoginDoctorDto, authorization) {
     try {
+      let headers = {};
+      if (authorization) {
+        headers = {
+          authorization,
+        };
+      }
       const response = await axios.post(`${url}/doctor/login`, loginDoctorDto, {
-        headers: {
-          authorization: authorization,
-        },
+        headers,
       });
+      // console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error.response.data);
+      throw error.response.data;
+    }
+  }
+
+  async getAllDoctors(skip, limit, authorization) {
+    try {
+      let headers = {};
+      if (authorization) {
+        headers = {
+          authorization,
+        };
+      }
+      const response = await axios.get(
+        `${url}/doctor/all?skip=${skip}&limit=${limit}`,
+        {
+          headers,
+        },
+      );
       // console.log(response.data);
       return response.data;
     } catch (error) {
@@ -45,13 +75,17 @@ export class AuthService {
 
   async registerPatient(registerPatientDto: RegisterPatientDto, authorization) {
     try {
+      let headers = {};
+      if (authorization) {
+        headers = {
+          authorization,
+        };
+      }
       const response = await axios.post(
         `${url}/patient/register`,
         registerPatientDto,
         {
-          headers: {
-            authorization: authorization,
-          },
+          headers,
         },
       );
       // console.log(response.data);
@@ -64,13 +98,17 @@ export class AuthService {
 
   async loginPatient(loginPatientDto: LoginPatientDto, authorization) {
     try {
+      let headers = {};
+      if (authorization) {
+        headers = {
+          authorization,
+        };
+      }
       const response = await axios.post(
         `${url}/patient/login`,
         loginPatientDto,
         {
-          headers: {
-            authorization: authorization,
-          },
+          headers,
         },
       );
       // console.log(response.data);

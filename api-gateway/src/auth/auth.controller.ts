@@ -1,5 +1,6 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { GetAuthorization } from 'src/custom-decorators/get-authorization';
+import { PaginationParams } from 'src/pagination-utils/paginationParams';
 import { AuthService } from './auth.service';
 import { LoginDoctorDto } from './dto/login-doctor.dto';
 import { LoginPatientDto } from './dto/login-patient.dto';
@@ -24,6 +25,14 @@ export class AuthController {
     @GetAuthorization() authorization,
   ) {
     return this.authService.loginDoctor(loginDoctorDto, authorization);
+  }
+
+  @Get('/doctor/all')
+  async getAllDoctors(
+    @Query() { skip, limit }: PaginationParams,
+    @GetAuthorization() authorization,
+  ) {
+    return this.authService.getAllDoctors(skip, limit, authorization);
   }
 
   @Post('/patient/register')
