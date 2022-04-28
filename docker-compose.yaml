@@ -23,6 +23,8 @@ services:
       - ./appointment/:/app
     networks:
       - pfa
+    env_file:
+      - ./global.env
 
   auth:
     container_name: auth
@@ -35,6 +37,8 @@ services:
       - ./auth/:/app
     networks:
       - pfa
+    env_file:
+      - ./global.env
 
   chat:
     container_name: chat
@@ -47,6 +51,8 @@ services:
       - ./chat/:/app
     networks:
       - pfa
+    env_file:
+      - ./global.env
 
   rabbitmq:
     # default username and password are 'guest'
@@ -60,6 +66,7 @@ services:
       - rabbitmqPfaLog:/var/log/rabbitmq
     networks:
       - pfa
+    # I need to provide credentials to rabbitMQ
 
 networks:
   pfa:

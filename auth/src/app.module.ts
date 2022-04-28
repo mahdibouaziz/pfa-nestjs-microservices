@@ -10,8 +10,10 @@ import { AppService } from './app.service';
         name: 'APPOINTMENT_SERVICE',
         transport: Transport.RMQ,
         options: {
-          urls: ['amqp://rabbitmq:5672'],
-          queue: 'appointment_queue',
+          urls: [
+            `amqp://${process.env.RABBITMQ_USER}:${process.env.RABBITMQ_PASSWORD}@${process.env.RABBITMQ_HOST}`,
+          ],
+          queue: process.env.RABBITMQ_APPOINTMENT_QUEUE_NAME,
           queueOptions: {
             durable: true,
           },
