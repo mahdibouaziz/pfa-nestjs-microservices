@@ -15,6 +15,10 @@ export class Doctor {
   birthday: Date;
   @Prop()
   email: string;
+  @Prop()
+  password: string;
+  @Prop()
+  salt: string;
   // nurse = infirmière
   @Prop({
     enum: ['doctor', 'nurse'],
