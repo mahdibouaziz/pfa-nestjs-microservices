@@ -10,6 +10,7 @@ import { Doctor, DoctorDocument } from './entities/doctor.entity';
 import * as bcrypt from 'bcrypt';
 import { LoginDoctorDto } from './dto/login-doctor.dto';
 import { JwtService } from '@nestjs/jwt';
+import { paginationFuntion } from 'src/pagination-utils/paginationFunction';
 
 @Injectable()
 export class DoctorService {
@@ -83,33 +84,13 @@ export class DoctorService {
 
   async getAllDoctors(pagesToSkip = 0, limitOfDocuments = 15, filter = '') {
     // this must returns: data, totalItems, totalPages
-    pagesToSkip = pagesToSkip * limitOfDocuments;
-    let query = {};
-    filter = filter.toLowerCase().trim();
-    if (filter.length > 0) {
-      query = {
-        $or: [
-          { firstname: { $regex: filter, $options: 'i' } },
-          { lastname: { $regex: filter, $options: 'i' } },
-          { email: { $regex: filter, $options: 'i' } },
-          { phone: { $regex: filter, $options: 'i' } },
-        ],
-      };
-    }
-
-    const data = await this.doctorModel
-      .find(query)
-      .sort({ _id: 1 })
-      .skip(pagesToSkip)
-      .limit(limitOfDocuments);
-
-    const totalItems = await this.doctorModel.count(query);
-    const totalPages = Math.round(totalItems / limitOfDocuments);
-
-    return {
-      data,
-      totalItems,
-      totalPages,
-    };
+    const searchCriteria = ['firstname', 'lastname', 'email', 'phone'];
+    return await paginationFuntion(
+      pagesToSkip,
+      limitOfDocuments,
+      filter,
+      searchCriteria,
+      this.doctorModel,
+    );
   }
 }

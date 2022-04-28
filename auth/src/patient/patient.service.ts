@@ -9,6 +9,7 @@ import { RegisterPatientDto } from './dto/register-patient.dto';
 import { Patient, PatientDocument } from './entities/patient.entity';
 import { Model } from 'mongoose';
 import { LoginPatientDto } from './dto/login-patient.dto';
+import { paginationFuntion } from 'src/pagination-utils/paginationFunction';
 
 @Injectable()
 export class PatientService {
@@ -62,33 +63,13 @@ export class PatientService {
 
   async getAllPatients(pagesToSkip = 0, limitOfDocuments = 15, filter = '') {
     // this must returns: data, totalItems, totalPages
-    pagesToSkip = pagesToSkip * limitOfDocuments;
-    let query = {};
-    filter = filter.toLowerCase().trim();
-    if (filter.length > 0) {
-      query = {
-        $or: [
-          { firstname: { $regex: filter, $options: 'i' } },
-          { lastname: { $regex: filter, $options: 'i' } },
-          { cin: { $regex: filter, $options: 'i' } },
-          { phone: { $regex: filter, $options: 'i' } },
-        ],
-      };
-    }
-
-    const data = await this.patientModel
-      .find(query)
-      .sort({ _id: 1 })
-      .skip(pagesToSkip)
-      .limit(limitOfDocuments);
-
-    const totalItems = await this.patientModel.count(query);
-    const totalPages = Math.round(totalItems / limitOfDocuments);
-
-    return {
-      data,
-      totalItems,
-      totalPages,
-    };
+    const searchCriteria = ['firstname', 'lastname', 'cin', 'phone'];
+    return await paginationFuntion(
+      pagesToSkip,
+      limitOfDocuments,
+      filter,
+      searchCriteria,
+      this.patientModel,
+    );
   }
 }
