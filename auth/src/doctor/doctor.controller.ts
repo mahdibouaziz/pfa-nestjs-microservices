@@ -21,8 +21,8 @@ export class DoctorController {
   }
 
   @Get('/all')
-  getAllDoctors(@Query() { skip, limit }: PaginationParams) {
+  getAllDoctors(@Query() { skip, limit, filter }: PaginationParams) {
     // this must returns:  totalItems, totalPages, data
-    return this.doctorService.getAllDoctors(skip, limit);
+    return this.doctorService.getAllDoctors(skip, limit, filter);
   }
 }
