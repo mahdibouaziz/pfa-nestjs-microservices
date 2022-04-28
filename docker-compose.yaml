@@ -25,6 +25,11 @@ services:
       - pfa
     env_file:
       - ./global.env
+    environment:
+      - DATABASE_USER=${MONGO_INITDB_ROOT_USERNAME}
+      - DATABASE_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - DATABASE_NAME=appointments
+      - DATABASE_LINK=appointment_mongodb:27017
 
   appointment_mongodb:
     container_name: appointment_mongodb
@@ -70,6 +75,11 @@ services:
       - pfa
     env_file:
       - ./global.env
+    environment:
+      - DATABASE_USER=${MONGO_INITDB_ROOT_USERNAME}
+      - DATABASE_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - DATABASE_NAME=auths
+      - DATABASE_LINK=auth_mongodb:27017
 
   auth_mongodb:
     container_name: auth_mongodb
