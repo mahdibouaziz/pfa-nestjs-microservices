@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { LoginDoctorDto } from './dto/login-doctor.dto';
+import { LoginPatientDto } from './dto/login-patient.dto';
 import { RegisterDoctorDto } from './dto/register-doctor.dto';
+import { RegisterPatientDto } from './dto/register-patient.dto';
 
 const url = 'http://auth:3000';
 
@@ -23,7 +25,6 @@ export class AuthService {
     } catch (error) {
       console.log(error.response.data);
       throw error.response.data;
-      // console.log(error);
     }
   }
 
@@ -39,7 +40,44 @@ export class AuthService {
     } catch (error) {
       console.log(error.response.data);
       throw error.response.data;
-      // console.log(error);
+    }
+  }
+
+  async registerPatient(registerPatientDto: RegisterPatientDto, authorization) {
+    try {
+      const response = await axios.post(
+        `${url}/patient/register`,
+        registerPatientDto,
+        {
+          headers: {
+            authorization: authorization,
+          },
+        },
+      );
+      // console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error.response.data);
+      throw error.response.data;
+    }
+  }
+
+  async loginPatient(loginPatientDto: LoginPatientDto, authorization) {
+    try {
+      const response = await axios.post(
+        `${url}/patient/login`,
+        loginPatientDto,
+        {
+          headers: {
+            authorization: authorization,
+          },
+        },
+      );
+      // console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error.response.data);
+      throw error.response.data;
     }
   }
 }
