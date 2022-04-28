@@ -14,7 +14,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    console.log('PAYLOAD: ', payload);
-    return { userId: payload.sub, email: payload.email };
+    // console.log('PAYLOAD: ', payload);
+    // if you want more validaiton in the token (for example in the DB)
+    // this is the place to perform validations
+    // read the docs https://docs.nestjs.com/security/authentication#implementing-passport-jwt
+
+    return { email: payload.email, type: payload.type };
   }
 }
