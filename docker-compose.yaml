@@ -26,6 +26,37 @@ services:
     env_file:
       - ./global.env
 
+  appointment_mongodb:
+    container_name: appointment_mongodb
+    image: mongo
+    # ports:
+    #   - 27017:27017
+    volumes:
+      - appointmentMongodbData:/data/db
+    networks:
+      - pfa
+    environment:
+      - MONGO_INITDB_DATABASE=appointments
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+
+  appointment_mongo_express:
+    container_name: appointment_mongo_express
+    image: mongo-express
+    depends_on:
+      - appointment_mongodb
+    restart: always
+    networks:
+      - pfa
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=appointment_mongodb
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - ME_CONFIG_BASICAUTH_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    ports:
+      - "8081:8081"
+
   auth:
     container_name: auth
     build:
@@ -39,6 +70,37 @@ services:
       - pfa
     env_file:
       - ./global.env
+
+  auth_mongodb:
+    container_name: auth_mongodb
+    image: mongo
+    # ports:
+    #   - 27017:27017
+    volumes:
+      - authMongodbData:/data/db
+    networks:
+      - pfa
+    environment:
+      - MONGO_INITDB_DATABASE=auths
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+
+  auth_mongo_express:
+    container_name: auth_mongo_express
+    image: mongo-express
+    depends_on:
+      - auth_mongodb
+    restart: always
+    networks:
+      - pfa
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=auth_mongodb
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - ME_CONFIG_BASICAUTH_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    ports:
+      - "8082:8081"
 
   chat:
     container_name: chat
@@ -72,5 +134,7 @@ networks:
   pfa:
 
 volumes:
+  appointmentMongodbData:
+  authMongodbData:
   rabbitmqPfaData:
   rabbitmqPfaLog:
