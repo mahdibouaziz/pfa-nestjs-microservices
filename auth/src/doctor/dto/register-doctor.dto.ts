@@ -4,5 +4,6 @@ export class RegisterDoctorDto {
   phone: string;
   birthday: Date;
   email: string;
+  password: string;
   type: string;
 }
