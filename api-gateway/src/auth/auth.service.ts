@@ -118,4 +118,26 @@ export class AuthService {
       throw error.response.data;
     }
   }
+
+  async getAllPatients(skip = 0, limit = 15, filter = '', authorization) {
+    try {
+      let headers = {};
+      if (authorization) {
+        headers = {
+          authorization,
+        };
+      }
+      const response = await axios.get(
+        `${url}/patient/all?skip=${skip}&limit=${limit}&filter=${filter}`,
+        {
+          headers,
+        },
+      );
+      // console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error.response.data);
+      throw error.response.data;
+    }
+  }
 }

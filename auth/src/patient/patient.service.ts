@@ -44,6 +44,7 @@ export class PatientService {
     await patient.save();
     return { message: 'Patient Created', patient };
   }
+
   async loginPatiet(loginPatientDto: LoginPatientDto) {
     // get the patient
     const patient = await this.findPatientByCinAndBirthday(
@@ -57,5 +58,37 @@ export class PatientService {
     const payload = { cin: patient.cin, birthday: patient.birthday };
     const accessToken = await this.jwtService.sign(payload);
     return { accessToken };
+  }
+
+  async getAllPatients(pagesToSkip = 0, limitOfDocuments = 15, filter = '') {
+    // this must returns: data, totalItems, totalPages
+    pagesToSkip = pagesToSkip * limitOfDocuments;
+    let query = {};
+    filter = filter.toLowerCase().trim();
+    if (filter.length > 0) {
+      query = {
+        $or: [
+          { firstname: { $regex: filter, $options: 'i' } },
+          { lastname: { $regex: filter, $options: 'i' } },
+          { cin: { $regex: filter, $options: 'i' } },
+          { phone: { $regex: filter, $options: 'i' } },
+        ],
+      };
+    }
+
+    const data = await this.patientModel
+      .find(query)
+      .sort({ _id: 1 })
+      .skip(pagesToSkip)
+      .limit(limitOfDocuments);
+
+    const totalItems = await this.patientModel.count(query);
+    const totalPages = Math.round(totalItems / limitOfDocuments);
+
+    return {
+      data,
+      totalItems,
+      totalPages,
+    };
   }
 }

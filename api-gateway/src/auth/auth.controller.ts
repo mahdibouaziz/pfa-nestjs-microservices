@@ -52,4 +52,12 @@ export class AuthController {
   ) {
     return this.authService.loginPatient(loginPatientDto, authorization);
   }
+
+  @Get('/patient/all')
+  async getAllPatients(
+    @Query() { skip, limit, filter }: PaginationParams,
+    @GetAuthorization() authorization,
+  ) {
+    return this.authService.getAllPatients(skip, limit, filter, authorization);
+  }
 }
