@@ -1,4 +1,9 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 import { Role } from './role.enum';
@@ -17,6 +22,7 @@ export class RolesGuard implements CanActivate {
       return true;
     }
     const request = context.switchToHttp().getRequest();
+    let result: boolean;
     try {
       const token = request.headers.authorization.split(' ')[1];
 
@@ -46,10 +52,17 @@ export class RolesGuard implements CanActivate {
 
       // console.log('USER:', newUser);
 
-      return requiredRoles.some((role) => newUser.roles?.includes(role));
+      result = requiredRoles.some((role) => newUser.roles?.includes(role));
     } catch (error) {
       //   console.log(error);
       return true;
+    }
+    if (result == true) {
+      return true;
+    } else {
+      throw new UnauthorizedException(
+        'You do not have the appropriate Role to do this operation',
+      );
     }
   }
 }
