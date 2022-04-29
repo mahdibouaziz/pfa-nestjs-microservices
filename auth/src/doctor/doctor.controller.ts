@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
 import { PaginationParams } from 'src/pagination-utils/paginationParams';
 import { DoctorService } from './doctor.service';
@@ -24,5 +33,10 @@ export class DoctorController {
   getAllDoctors(@Query() { skip, limit, filter }: PaginationParams) {
     // this must returns:  totalItems, totalPages, data
     return this.doctorService.getAllDoctors(skip, limit, filter);
+  }
+
+  @Delete('/delete/:doctorId')
+  async deleteDoctorById(@Param('doctorId') doctorId: string) {
+    return this.doctorService.deleteDoctorById(doctorId);
   }
 }

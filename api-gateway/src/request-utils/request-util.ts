@@ -28,14 +28,18 @@ export const request = async (
   }
 };
 
-export const post = async (url: string, data = {}, authorization) => {
+export const postRequest = async (url: string, data = {}, authorization) => {
   return await request('post', url, data, authorization);
 };
 
-export const get = async (url: string, authorization) => {
+export const getRequest = async (url: string, authorization) => {
   return await request('get', url, {}, authorization);
 };
 
-export const put = async (url: string, data = {}, authorization) => {
+export const deleteRequest = async (url: string, authorization) => {
+  return await request('delete', url, {}, authorization);
+};
+
+export const putRequest = async (url: string, data = {}, authorization) => {
   return await request('put', url, data, authorization);
 };

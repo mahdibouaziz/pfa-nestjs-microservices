@@ -1,6 +1,7 @@
 import {
   ConflictException,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -92,5 +93,20 @@ export class DoctorService {
       searchCriteria,
       this.doctorModel,
     );
+  }
+
+  async deleteDoctorById(doctorId: string) {
+    console.log(doctorId);
+    try {
+      const response = await this.doctorModel.deleteOne({ _id: doctorId });
+      console.log(response);
+      if (response.deletedCount == 0) {
+        throw new NotFoundException();
+      }
+      return response;
+    } catch (error) {
+      console.log(error.data);
+      throw new NotFoundException(`doctor with this ID: ${doctorId} not found`);
+    }
   }
 }

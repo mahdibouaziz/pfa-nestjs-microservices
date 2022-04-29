@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { GetAuthorization } from 'src/custom-decorators/get-authorization';
 import { PaginationParams } from 'src/pagination-utils/paginationParams';
 import { AuthService } from './auth.service';
@@ -35,6 +43,14 @@ export class AuthController {
     @GetAuthorization() authorization,
   ) {
     return this.authService.getAllDoctors(skip, limit, filter, authorization);
+  }
+
+  @Delete('/doctor/delete/:doctorId')
+  async deleteDoctorById(
+    @Param('doctorId') doctorId: string,
+    @GetAuthorization() authorization,
+  ) {
+    return this.authService.deleteDoctorById(doctorId, authorization);
   }
 
   @Post('/patient/register')
