@@ -146,176 +146,181 @@ describe('Doctor Controller', () => {
     });
   });
 
-  // describe('Get all doctors', () => {
-  //   it('fetch the doctors - with an admin account', async () => {
-  //     // get the admin doctor and attach to it a token
-  //     const loginResponse = await request(httpServer)
-  //       .post('/doctor/login')
-  //       .send({
-  //         email: doctorAdminStub().email,
-  //         password: doctorAdminStub().password,
-  //       });
+  describe('Get all doctors', () => {
+    it('fetch the doctors - with an admin account', async () => {
+      // get the admin doctor and attach to it a token
+      const loginResponse = await request(httpServer)
+        .post('/doctor/login')
+        .send({
+          email: doctorAdminStub().email,
+          password: doctorAdminStub().password,
+        });
 
-  //     // get all the doctors
-  //     const fetchResponse = await request(httpServer)
-  //       .get('/doctor/all')
-  //       .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
+      // get all the doctors
+      const fetchResponse = await request(httpServer)
+        .get('/doctor/all')
+        .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
 
-  //     console.log('ERROR HAPENING HERE', fetchResponse.body);
+      // console.log('ERROR HAPENING HERE', fetchResponse.body);
 
-  //     expect(fetchResponse.status).toBe(200);
-  //     expect(fetchResponse.body.data).toBeTruthy();
-  //     expect(fetchResponse.body.totalItems).toBeTruthy();
-  //     expect(fetchResponse.body.totalPages).toBeTruthy();
-  //   });
+      expect(fetchResponse.status).toBe(200);
+      expect(fetchResponse.body.data).toBeTruthy();
+      expect(fetchResponse.body.totalItems).toBeTruthy();
+      expect(fetchResponse.body.totalPages).toBeTruthy();
+    });
 
-  //   it('fetch the doctors - with a doctor account', async () => {
-  //     // get the doctor and attach to it a token
-  //     const loginResponse = await request(httpServer)
-  //       .post('/doctor/login')
-  //       .send({
-  //         email: doctorStub().email,
-  //         password: doctorStub().password,
-  //       });
+    it('fetch the doctors - with a doctor account', async () => {
+      // get the doctor and attach to it a token
+      const loginResponse = await request(httpServer)
+        .post('/doctor/login')
+        .send({
+          email: doctorStub().email,
+          password: doctorStub().password,
+        });
 
-  //     // get all the doctors
-  //     const fetchResponse = await request(httpServer)
-  //       .get('/doctor/all')
-  //       .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
+      // get all the doctors
+      const fetchResponse = await request(httpServer)
+        .get('/doctor/all')
+        .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
 
-  //     expect(fetchResponse.status).toBe(200);
-  //     expect(fetchResponse.body.data).toBeTruthy();
-  //     expect(fetchResponse.body.totalItems).toBeTruthy();
-  //     expect(fetchResponse.body.totalPages).toBeTruthy();
-  //   });
+      expect(fetchResponse.status).toBe(200);
+      expect(fetchResponse.body.data).toBeTruthy();
+      expect(fetchResponse.body.totalItems).toBeTruthy();
+      expect(fetchResponse.body.totalPages).toBeTruthy();
+    });
 
-  //   it('fetch the doctors - with a patient account (must fails)', async () => {
-  //     // create a patient account
-  //     await dbConnection.collection('patients').insertOne({ ...patientStub() });
-  //     // login to the patient account and get a token
-  //     const loginResponse = await request(httpServer)
-  //       .post('/patient/login')
-  //       .send({
-  //         cin: patientStub().cin,
-  //         birthday: patientStub().birthday,
-  //       });
+    it('fetch the doctors - with a patient account (must fails)', async () => {
+      // create a patient account
+      await dbConnection.collection('patients').insertOne({ ...patientStub() });
+      // login to the patient account and get a token
+      const loginResponse = await request(httpServer)
+        .post('/patient/login')
+        .send({
+          cin: patientStub().cin,
+          birthday: patientStub().birthday,
+        });
 
-  //     // get all the doctors
-  //     const fetchResponse = await request(httpServer)
-  //       .get('/doctor/all')
-  //       .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
+      // get all the doctors
+      const fetchResponse = await request(httpServer)
+        .get('/doctor/all')
+        .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
 
-  //     // console.log(fetchResponse.body);
+      // console.log(fetchResponse.body);
 
-  //     expect(fetchResponse.status).toBe(401);
-  //     expect(fetchResponse.body.error).toEqual('Unauthorized');
-  //   });
+      expect(fetchResponse.status).toBe(401);
+      expect(fetchResponse.body.error).toEqual('Unauthorized');
+    });
 
-  //   it('fetch the doctors - without an account (must fails)', async () => {
-  //     // get all the doctors
-  //     const fetchResponse = await request(httpServer).get('/doctor/all');
+    it('fetch the doctors - without an account (must fails)', async () => {
+      // get all the doctors
+      const fetchResponse = await request(httpServer).get('/doctor/all');
 
-  //     expect(fetchResponse.status).toBe(401);
-  //     expect(fetchResponse.body.message).toEqual('Unauthorized');
-  //   });
-  // });
+      expect(fetchResponse.status).toBe(401);
+      expect(fetchResponse.body.message).toEqual('Unauthorized');
+    });
+  });
 
-  // describe('Delete doctors', () => {
-  //   beforeEach(async () => {
-  //     // create a doctor before each it
-  //     const salt = await bcrypt.genSalt();
-  //     const password = await bcrypt.hash(doctorStub1().password, salt);
-  //     await dbConnection
-  //       .collection('doctors')
-  //       .insertOne({ ...doctorStub1(), salt, password });
-  //   });
+  describe('Delete doctors', () => {
+    beforeEach(async () => {
+      // create a dummy doctor before each it
+      const salt = await bcrypt.genSalt();
+      const password = await bcrypt.hash(doctorStub1().password, salt);
+      await dbConnection
+        .collection('doctors')
+        .insertOne({ ...doctorStub1(), salt, password });
+    });
 
-  //   it('delete the doctor - with an admin account', async () => {
-  //     // get the admin doctor and attach to it a token
-  //     const loginResponse = await request(httpServer)
-  //       .post('/doctor/login')
-  //       .send({
-  //         email: doctorAdminStub().email,
-  //         password: doctorAdminStub().password,
-  //       });
+    it('delete the doctor - with an admin account', async () => {
+      // get the admin doctor and attach to it a token
+      const loginResponse = await request(httpServer)
+        .post('/doctor/login')
+        .send({
+          email: doctorAdminStub().email,
+          password: doctorAdminStub().password,
+        });
 
-  //     // get the doctor to delete
-  //     const doctor = await dbConnection
-  //       .collection('doctors')
-  //       .findOne({ email: doctorStub1().email });
-  //     // console.log('DOCTOR: ', doctor);
+      // get the doctor to delete
+      const doctor = await dbConnection
+        .collection('doctors')
+        .findOne({ email: doctorStub1().email });
+      // console.log('DOCTOR: ', doctor);
 
-  //     const deleteResponse = await request(httpServer)
-  //       .delete(`/doctor/delete/${doctor._id}`)
-  //       .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
+      const deleteResponse = await request(httpServer)
+        .delete(`/doctor/delete/${doctor._id}`)
+        .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
 
-  //     expect(deleteResponse.body.message).toBeTruthy();
-  //     expect(deleteResponse.status).toEqual(200);
-  //   });
+      expect(deleteResponse.body.message).toBeTruthy();
+      expect(deleteResponse.status).toEqual(200);
+    });
 
-  //   it('delete the doctor - with doctor account (must fails)', async () => {
-  //     // get the doctor and attach to it a token
-  //     const loginResponse = await request(httpServer)
-  //       .post('/doctor/login')
-  //       .send({
-  //         email: doctorStub().email,
-  //         password: doctorStub().password,
-  //       });
+    it('delete the doctor - with doctor account (must fails)', async () => {
+      // get the doctor and attach to it a token
+      const loginResponse = await request(httpServer)
+        .post('/doctor/login')
+        .send({
+          email: doctorStub().email,
+          password: doctorStub().password,
+        });
 
-  //     // get the doctor to delete
-  //     const doctor = await dbConnection
-  //       .collection('doctors')
-  //       .findOne({ email: doctorStub1().email });
-  //     // console.log('DOCTOR: ', doctor);
+      // get the doctor to delete
+      const doctor = await dbConnection
+        .collection('doctors')
+        .findOne({ email: doctorStub1().email });
+      // console.log('DOCTOR: ', doctor);
 
-  //     const deleteResponse = await request(httpServer)
-  //       .delete(`/doctor/delete/${doctor._id}`)
-  //       .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
+      const deleteResponse = await request(httpServer)
+        .delete(`/doctor/delete/${doctor._id}`)
+        .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
 
-  //     expect(deleteResponse.status).toEqual(401);
-  //     expect(deleteResponse.body.message).toBeTruthy();
-  //     expect(deleteResponse.body.error).toBeTruthy();
-  //   });
+      expect(deleteResponse.status).toEqual(401);
+      expect(deleteResponse.body.message).toBeTruthy();
+      expect(deleteResponse.body.error).toBeTruthy();
+    });
 
-  //   it('delete the doctor - without a patient account (must fails)', async () => {
-  //     // get the patient account and attach to it a token
-  //     const loginResponse = await request(httpServer)
-  //       .post('/patient/login')
-  //       .send({
-  //         cin: patientStub().cin,
-  //         birthday: patientStub().birthday,
-  //       });
+    it('delete the doctor - without a patient account (must fails)', async () => {
+      // create a patient account
+      await dbConnection.collection('patients').insertOne({ ...patientStub() });
 
-  //     // get the doctor to delete
-  //     const doctor = await dbConnection
-  //       .collection('doctors')
-  //       .findOne({ email: doctorStub1().email });
-  //     // console.log('DOCTOR: ', doctor);
+      // get the patient account and attach to it a token
+      const loginResponse = await request(httpServer)
+        .post('/patient/login')
+        .send({
+          cin: patientStub().cin,
+          birthday: patientStub().birthday,
+        });
 
-  //     const deleteResponse = await request(httpServer)
-  //       .delete(`/doctor/delete/${doctor._id}`)
-  //       .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
+      // console.log(loginResponse.body);
 
-  //     expect(deleteResponse.status).toEqual(401);
-  //     expect(deleteResponse.body.message).toBeTruthy();
-  //     expect(deleteResponse.body.error).toBeTruthy();
-  //   });
+      // get the doctor to delete
+      const doctor = await dbConnection
+        .collection('doctors')
+        .findOne({ email: doctorStub1().email });
+      // console.log('DOCTOR: ', doctor);
 
-  //   it('delete the doctor - without an account (must fails)', async () => {
-  //     // get the doctor to delete
-  //     const doctor = await dbConnection
-  //       .collection('doctors')
-  //       .findOne({ email: doctorStub1().email });
-  //     // console.log('DOCTOR: ', doctor);
+      const deleteResponse = await request(httpServer)
+        .delete(`/doctor/delete/${doctor._id}`)
+        .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
 
-  //     const deleteResponse = await request(httpServer).delete(
-  //       `/doctor/delete/${doctor._id}`,
-  //     );
+      expect(deleteResponse.status).toEqual(401);
+      expect(deleteResponse.body.message).toBeTruthy();
+      expect(deleteResponse.body.error).toBeTruthy();
+    });
 
-  //     // console.log(deleteResponse.body);
+    it('delete the doctor - without an account (must fails)', async () => {
+      // get the doctor to delete
+      const doctor = await dbConnection
+        .collection('doctors')
+        .findOne({ email: doctorStub().email });
+      // console.log('DOCTOR: ', doctor);
 
-  //     expect(deleteResponse.status).toEqual(401);
-  //     expect(deleteResponse.body.message).toBeTruthy();
-  //   });
-  // });
+      const deleteResponse = await request(httpServer).delete(
+        `/doctor/delete/${doctor._id}`,
+      );
+
+      // console.log(deleteResponse.body);
+
+      expect(deleteResponse.status).toEqual(401);
+      expect(deleteResponse.body.message).toBeTruthy();
+    });
+  });
 });
