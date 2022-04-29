@@ -1,6 +1,6 @@
 import { RegisterDoctorDto } from 'src/doctor/dto/register-doctor.dto';
 
-export const doctorStub = (): RegisterDoctorDto => {
+export const doctorAdminStub = (): RegisterDoctorDto => {
   return {
     firstname: 'doctorTest',
     lastname: 'doctorTest',

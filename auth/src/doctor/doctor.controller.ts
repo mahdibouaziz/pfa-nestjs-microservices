@@ -25,8 +25,8 @@ export class DoctorController {
     return this.doctorService.loginDoctor(loginDoctorDto);
   }
 
-  // @UseGuards(JwtAuthGuard)
-  // @Roles(Role.Admin)
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin)
   @Post('/register')
   registerDoctor(@Body() registerDoctorDto: RegisterDoctorDto) {
     return this.doctorService.registerDoctor(registerDoctorDto);
