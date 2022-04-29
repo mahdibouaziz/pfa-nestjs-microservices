@@ -8,10 +8,10 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { Role } from 'src/auth/authorization/role.enum';
-import { Roles } from 'src/auth/authorization/roles.decorator';
-import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
-import { PaginationParams } from 'src/pagination-utils/paginationParams';
+import { Role } from '../auth/authorization/role.enum';
+import { Roles } from '../auth/authorization/roles.decorator';
+import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard';
+import { PaginationParams } from '../pagination-utils/paginationParams';
 import { DoctorService } from './doctor.service';
 import { LoginDoctorDto } from './dto/login-doctor.dto';
 import { RegisterDoctorDto } from './dto/register-doctor.dto';
@@ -25,8 +25,8 @@ export class DoctorController {
     return this.doctorService.loginDoctor(loginDoctorDto);
   }
 
-  @UseGuards(JwtAuthGuard)
-  @Roles(Role.Admin)
+  // @UseGuards(JwtAuthGuard)
+  // @Roles(Role.Admin)
   @Post('/register')
   registerDoctor(@Body() registerDoctorDto: RegisterDoctorDto) {
     return this.doctorService.registerDoctor(registerDoctorDto);

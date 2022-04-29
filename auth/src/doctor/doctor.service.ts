@@ -11,7 +11,7 @@ import { Doctor, DoctorDocument } from './entities/doctor.entity';
 import * as bcrypt from 'bcrypt';
 import { LoginDoctorDto } from './dto/login-doctor.dto';
 import { JwtService } from '@nestjs/jwt';
-import { paginationFuntion } from 'src/pagination-utils/paginationFunction';
+import { paginationFuntion } from '../pagination-utils/paginationFunction';
 
 @Injectable()
 export class DoctorService {

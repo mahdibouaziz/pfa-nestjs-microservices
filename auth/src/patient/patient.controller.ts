@@ -11,10 +11,10 @@ import {
 import { PatientService } from './patient.service';
 import { RegisterPatientDto } from './dto/register-patient.dto';
 import { LoginPatientDto } from './dto/login-patient.dto';
-import { PaginationParams } from 'src/pagination-utils/paginationParams';
-import { Roles } from 'src/auth/authorization/roles.decorator';
-import { Role } from 'src/auth/authorization/role.enum';
-import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
+import { PaginationParams } from '../pagination-utils/paginationParams';
+import { Roles } from '../auth/authorization/roles.decorator';
+import { Role } from '../auth/authorization/role.enum';
+import { JwtAuthGuard } from '../auth/jwt/jwt-auth.guard';
 
 @Controller('patient')
 export class PatientController {

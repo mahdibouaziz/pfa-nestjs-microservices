@@ -10,7 +10,7 @@ import { RegisterPatientDto } from './dto/register-patient.dto';
 import { Patient, PatientDocument } from './entities/patient.entity';
 import { Model } from 'mongoose';
 import { LoginPatientDto } from './dto/login-patient.dto';
-import { paginationFuntion } from 'src/pagination-utils/paginationFunction';
+import { paginationFuntion } from '../pagination-utils/paginationFunction';
 
 @Injectable()
 export class PatientService {

@@ -3,7 +3,7 @@ import { DoctorService } from './doctor.service';
 import { DoctorController } from './doctor.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Doctor, DoctorSchema } from './entities/doctor.entity';
-import { AuthModule } from 'src/auth/auth.module';
+import { AuthModule } from '../auth/auth.module';
 
 @Module({
   imports: [
