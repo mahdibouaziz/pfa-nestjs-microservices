@@ -100,10 +100,10 @@ export class DoctorService {
   }
 
   async deleteDoctorById(doctorId: string) {
-    console.log(doctorId);
+    // console.log(doctorId);
     try {
       const response = await this.doctorModel.deleteOne({ _id: doctorId });
-      console.log(response);
+      // console.log(response);
       if (response.deletedCount == 0) {
         throw new NotFoundException();
       }
