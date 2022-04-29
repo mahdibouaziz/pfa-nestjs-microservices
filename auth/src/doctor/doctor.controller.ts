@@ -20,24 +20,28 @@ import { RegisterDoctorDto } from './dto/register-doctor.dto';
 export class DoctorController {
   constructor(private readonly doctorService: DoctorService) {}
 
-  @UseGuards(JwtAuthGuard)
-  @Roles(Role.Doctor)
-  @Post('/register')
-  registerDoctor(@Body() registerDoctorDto: RegisterDoctorDto) {
-    return this.doctorService.registerDoctor(registerDoctorDto);
-  }
-
   @Post('/login')
   loginDoctor(@Body() loginDoctorDto: LoginDoctorDto) {
     return this.doctorService.loginDoctor(loginDoctorDto);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin)
+  @Post('/register')
+  registerDoctor(@Body() registerDoctorDto: RegisterDoctorDto) {
+    return this.doctorService.registerDoctor(registerDoctorDto);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Doctor, Role.Nurse)
   @Get('/all')
   getAllDoctors(@Query() { skip, limit, filter }: PaginationParams) {
     // this must returns:  totalItems, totalPages, data
     return this.doctorService.getAllDoctors(skip, limit, filter);
   }
 
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin)
   @Delete('/delete/:doctorId')
   async deleteDoctorById(@Param('doctorId') doctorId: string) {
     return this.doctorService.deleteDoctorById(doctorId);
