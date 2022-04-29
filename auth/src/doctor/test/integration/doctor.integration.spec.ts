@@ -3,7 +3,7 @@ import * as request from 'supertest';
 
 import { Connection } from 'mongoose';
 import { DatabaseService } from '../../../database/database.service';
-import { doctorAdminStub } from '../stubs/doctor.stub';
+import { doctorAdminStub, doctorStub } from '../stubs/doctor.stub';
 import { AppModule } from '../../../app.module';
 import * as bcrypt from 'bcrypt';
 
@@ -56,33 +56,34 @@ describe('Doctor Controller', () => {
           password: doctorAdminStub().password,
         });
 
-      const token = loginResponse.body.accessToken;
       expect(loginResponse.status).toBe(201);
       expect(loginResponse.body.accessToken).toBeTruthy();
+    });
 
-      //   expect(response.body.data).toMatchObject([doctorStub()]);
-      //   expect(response.body.totalItems).toEqual(1);
-      //   expect(response.body.totalPages).toEqual(1);
+    it('the admin doctor will create a new  doctor account without admin privileges', async () => {
+      // get the admin doctor and attach to it a token
+      const loginResponse = await request(httpServer)
+        .post('/doctor/login')
+        .send({
+          email: doctorAdminStub().email,
+          password: doctorAdminStub().password,
+        });
+      // console.log(loginResponse.body.accessToken);
 
-      //   register a doctor
-      //   const registerResponse = await request(httpServer)
-      //     .post('/doctor/register')
-      //     .send(doctorStub());
-      //   console.log('REGISTERED Doctor: ', registerResponse.body.doctor);
+      //create a doctor without admin privileges
+      const registerResponse = await request(httpServer)
+        .post('/doctor/register')
+        .send(doctorStub())
+        .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
+      // console.log(registerResponse.body);
 
-      //   const response = await request(httpServer)
-      //     .get('/doctor/all')
-      //     .set('Authorization', `Bearer ${token}`);
-      //   console.log(response.body);
-      //   expect(response.status).toBe(200);
-      //   expect(response.body.data).toMatchObject([doctorStub()]);
-      //   expect(response.body.totalItems).toEqual(1);
-      //   expect(response.body.totalPages).toEqual(1);
+      expect(registerResponse.status).toBe(201);
+      expect(registerResponse.body.doctor).toBeTruthy();
+      expect(registerResponse.body.doctor.firstname).toBeTruthy();
     });
 
     // more tests
-    // login an existing doctor to the DB with admin privileges
-    // the admin doctor will create a new  doctor account without admin privileges
+
     // the non admin doctor will create a new  doctor account (it must fails)
 
     // the admin doctor will create a new create a nurse account without admin privileges
