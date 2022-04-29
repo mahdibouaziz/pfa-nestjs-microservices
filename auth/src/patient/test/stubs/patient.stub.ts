@@ -11,7 +11,17 @@ export const patientStub = (): RegisterPatientDto => {
   };
 };
 
-export const doctorAdminStub = (): RegisterDoctorDto => {
+export const patientStub1 = (): RegisterPatientDto => {
+  return {
+    cin: '22222222',
+    firstname: 'doctorTest1',
+    lastname: 'doctorTest1',
+    phone: '20400417',
+    birthday: new Date(2000, 1, 4),
+  };
+};
+
+export const doctorStub = (): RegisterDoctorDto => {
   return {
     firstname: 'doctorAdminTest',
     lastname: 'doctorAdminTest',
@@ -20,6 +30,6 @@ export const doctorAdminStub = (): RegisterDoctorDto => {
     email: 'test@test.com',
     password: 'doctorAdminTest',
     type: 'doctor',
-    isAdmin: true,
+    isAdmin: false,
   };
 };

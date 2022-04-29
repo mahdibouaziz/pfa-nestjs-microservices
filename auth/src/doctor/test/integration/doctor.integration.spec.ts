@@ -74,6 +74,8 @@ describe('Doctor Controller', () => {
           password: doctorAdminStub().password,
         });
 
+      console.log('TESTTTTT', loginResponse.body);
+
       expect(loginResponse.status).toBe(201);
       expect(loginResponse.body.accessToken).toBeTruthy();
     });
