@@ -19,6 +19,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     // this is the place to perform validations
     // read the docs https://docs.nestjs.com/security/authentication#implementing-passport-jwt
 
-    return { email: payload.email, type: payload.type };
+    // console.log(payload);
+
+    return payload;
   }
 }

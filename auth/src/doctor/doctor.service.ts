@@ -78,7 +78,11 @@ export class DoctorService {
     const doctor: Doctor = await this.validateCredentials(loginDoctorDto);
     // create the payload and return the access token
 
-    const payload = { email: doctor.email, type: doctor.type };
+    const payload = {
+      email: doctor.email,
+      type: doctor.type,
+      isAdmin: doctor.isAdmin,
+    };
     const accessToken = await this.jwtService.sign(payload);
     return { accessToken };
   }
