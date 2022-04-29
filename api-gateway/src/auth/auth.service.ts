@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { get, post } from 'src/request-utils/resuest-util';
+import { get, post } from 'src/request-utils/request-util';
 import { LoginDoctorDto } from './dto/login-doctor.dto';
 import { LoginPatientDto } from './dto/login-patient.dto';
 import { RegisterDoctorDto } from './dto/register-doctor.dto';
