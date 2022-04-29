@@ -4,8 +4,6 @@ import { DoctorController } from './doctor.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Doctor, DoctorSchema } from './entities/doctor.entity';
 import { AuthModule } from 'src/auth/auth.module';
-import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from 'src/auth/authorization/roles.guard';
 
 @Module({
   imports: [
@@ -13,13 +11,7 @@ import { RolesGuard } from 'src/auth/authorization/roles.guard';
     AuthModule,
   ],
   controllers: [DoctorController],
-  providers: [
-    DoctorService,
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
-    },
-  ],
+  providers: [DoctorService],
   exports: [DoctorService],
 })
 export class DoctorModule {}

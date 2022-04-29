@@ -44,7 +44,7 @@ export class RolesGuard implements CanActivate {
         newUser.roles.push(Role.Admin);
       }
 
-      console.log('USER:', newUser);
+      // console.log('USER:', newUser);
 
       return requiredRoles.some((role) => newUser.roles?.includes(role));
     } catch (error) {
