@@ -25,3 +25,16 @@ export const doctorStub = (): RegisterDoctorDto => {
     isAdmin: false,
   };
 };
+
+export const doctorStub1 = (): RegisterDoctorDto => {
+  return {
+    firstname: 'doctorTest1',
+    lastname: 'doctorTest1',
+    phone: '20400417',
+    birthday: new Date(2000, 1, 4),
+    email: 'doctorTest1@test.com',
+    password: 'doctorTest',
+    type: 'doctor',
+    isAdmin: false,
+  };
+};

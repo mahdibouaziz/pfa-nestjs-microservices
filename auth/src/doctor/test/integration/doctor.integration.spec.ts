@@ -3,7 +3,7 @@ import * as request from 'supertest';
 
 import { Connection } from 'mongoose';
 import { DatabaseService } from '../../../database/database.service';
-import { doctorAdminStub, doctorStub } from '../stubs/doctor.stub';
+import { doctorAdminStub, doctorStub, doctorStub1 } from '../stubs/doctor.stub';
 import { AppModule } from '../../../app.module';
 import * as bcrypt from 'bcrypt';
 
@@ -75,21 +75,60 @@ describe('Doctor Controller', () => {
         .post('/doctor/register')
         .send(doctorStub())
         .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
-      // console.log(registerResponse.body);
 
       expect(registerResponse.status).toBe(201);
       expect(registerResponse.body.doctor).toBeTruthy();
       expect(registerResponse.body.doctor.firstname).toBeTruthy();
     });
 
+    it('the non admin doctor will create a new  doctor account (it must fails)', async () => {
+      // get the admin doctor and attach to it a token
+      const loginResponse = await request(httpServer)
+        .post('/doctor/login')
+        .send({
+          email: doctorStub1().email,
+          password: doctorStub1().password,
+        });
+      console.log(loginResponse.body.accessToken);
+
+      //create a doctor without admin privileges
+      const registerResponse = await request(httpServer)
+        .post('/doctor/register')
+        .send(doctorStub1())
+        .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
+
+      expect(registerResponse.status).toBe(401);
+      expect(registerResponse.body.error).toEqual('Unauthorized');
+    });
+
+    it('login the doctor with valid credentials', async () => {
+      // get the admin doctor and attach to it a token
+      const loginResponse = await request(httpServer)
+        .post('/doctor/login')
+        .send({
+          email: doctorStub().email,
+          password: doctorStub().password,
+        });
+
+      expect(loginResponse.status).toBe(201);
+      expect(loginResponse.body.accessToken).toBeTruthy();
+    });
+
+    it('login the doctor with wrong credentials', async () => {
+      // get the admin doctor and attach to it a token
+      const loginResponse = await request(httpServer)
+        .post('/doctor/login')
+        .send({
+          email: doctorStub1().email,
+          password: doctorStub().password,
+        });
+
+      // console.log(loginResponse.body);
+
+      expect(loginResponse.status).toBe(401);
+      expect(loginResponse.body.error).toEqual('Unauthorized');
+    });
+
     // more tests
-
-    // the non admin doctor will create a new  doctor account (it must fails)
-
-    // the admin doctor will create a new create a nurse account without admin privileges
-    // the non admin nurse will create a new  doctor account (it must fails)
-
-    // login the doctor / nurse with valid credentials
-    // login the doctor / nurse wuth wrong credentials
   });
 });
