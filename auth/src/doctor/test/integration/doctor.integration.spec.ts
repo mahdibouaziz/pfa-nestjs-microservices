@@ -3,7 +3,12 @@ import * as request from 'supertest';
 
 import { Connection } from 'mongoose';
 import { DatabaseService } from '../../../database/database.service';
-import { doctorAdminStub, doctorStub, doctorStub1 } from '../stubs/doctor.stub';
+import {
+  doctorAdminStub,
+  doctorStub,
+  doctorStub1,
+  patientStub,
+} from '../stubs/doctor.stub';
 import { AppModule } from '../../../app.module';
 import * as bcrypt from 'bcrypt';
 
@@ -113,7 +118,7 @@ describe('Doctor Controller', () => {
       expect(loginResponse.body.accessToken).toBeTruthy();
     });
 
-    it('login the doctor with wrong credentials', async () => {
+    it('login the doctor with wrong credentials (must fails)', async () => {
       const loginResponse = await request(httpServer)
         .post('/doctor/login')
         .send({
@@ -169,12 +174,51 @@ describe('Doctor Controller', () => {
       expect(fetchResponse.body.totalPages).toBeTruthy();
     });
 
+    it('fetch the doctors - with a patient account (must fails)', async () => {
+      // create a patient account
+      await dbConnection.collection('patients').insertOne({ ...patientStub() });
+      // login to the patient account and get a token
+      const loginResponse = await request(httpServer)
+        .post('/patient/login')
+        .send({
+          cin: patientStub().cin,
+          birthday: patientStub().birthday,
+        });
+
+      // get all the doctors
+      const fetchResponse = await request(httpServer)
+        .get('/doctor/all')
+        .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
+
+      console.log(fetchResponse.body);
+
+      expect(fetchResponse.status).toBe(401);
+      expect(fetchResponse.body.error).toEqual('Unauthorized');
+    });
+
     it('fetch the doctors - without an account (must fails)', async () => {
       // get all the doctors
       const fetchResponse = await request(httpServer).get('/doctor/all');
 
       expect(fetchResponse.status).toBe(401);
       expect(fetchResponse.body.message).toEqual('Unauthorized');
+    });
+  });
+
+  describe('Delete doctors', () => {
+    it('delete the doctor - with an admin account', async () => {
+      //
+    });
+    it('delete the doctor - with doctor account', async () => {
+      //
+    });
+
+    it('delete the doctor - without a patient account (must fails)', async () => {
+      //
+    });
+
+    it('delete the doctor - without an account (must fails)', async () => {
+      //
     });
   });
 });
