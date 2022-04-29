@@ -6,4 +6,5 @@ export class RegisterDoctorDto {
   email: string;
   password: string;
   type: string;
+  isAdmin: boolean;
 }

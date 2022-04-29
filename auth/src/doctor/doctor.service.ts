@@ -103,7 +103,9 @@ export class DoctorService {
       if (response.deletedCount == 0) {
         throw new NotFoundException();
       }
-      return response;
+      return {
+        message: 'Doctor Deleted',
+      };
     } catch (error) {
       console.log(error.data);
       throw new NotFoundException(`doctor with this ID: ${doctorId} not found`);

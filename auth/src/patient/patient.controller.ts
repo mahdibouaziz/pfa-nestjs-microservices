@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { PatientService } from './patient.service';
 import { RegisterPatientDto } from './dto/register-patient.dto';
 import { LoginPatientDto } from './dto/login-patient.dto';
@@ -22,5 +30,10 @@ export class PatientController {
   getAllPatients(@Query() { skip, limit, filter }: PaginationParams) {
     // this must returns:  totalItems, totalPages, data
     return this.patientService.getAllPatients(skip, limit, filter);
+  }
+
+  @Delete('/delete/:patientId')
+  async deletePatientById(@Param('patientId') patientId: string) {
+    return this.patientService.deletePatientById(patientId);
   }
 }

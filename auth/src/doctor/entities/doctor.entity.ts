@@ -24,6 +24,11 @@ export class Doctor {
     enum: ['doctor', 'nurse'],
   })
   type: string;
+
+  @Prop({
+    default: false,
+  })
+  isAdmin: boolean;
 }
 
 export const DoctorSchema = SchemaFactory.createForClass(Doctor);

@@ -6,4 +6,5 @@ export class RegisterDoctorDto {
   birthday: Date;
   email: string;
   type: string;
+  isAdmin: boolean;
 }

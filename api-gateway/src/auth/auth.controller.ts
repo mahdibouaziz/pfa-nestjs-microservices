@@ -76,4 +76,12 @@ export class AuthController {
   ) {
     return this.authService.getAllPatients(skip, limit, filter, authorization);
   }
+
+  @Delete('/patient/delete/:patientId')
+  async deletePatientById(
+    @Param('patientId') patientId: string,
+    @GetAuthorization() authorization,
+  ) {
+    return this.authService.deletePatientById(patientId, authorization);
+  }
 }

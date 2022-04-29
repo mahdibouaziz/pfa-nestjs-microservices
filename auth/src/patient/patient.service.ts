@@ -1,6 +1,7 @@
 import {
   ConflictException,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -71,5 +72,24 @@ export class PatientService {
       searchCriteria,
       this.patientModel,
     );
+  }
+
+  async deletePatientById(patientId: string) {
+    console.log(patientId);
+    try {
+      const response = await this.patientModel.deleteOne({ _id: patientId });
+      console.log(response);
+      if (response.deletedCount == 0) {
+        throw new NotFoundException();
+      }
+      return {
+        message: 'Patient deleted',
+      };
+    } catch (error) {
+      console.log(error.data);
+      throw new NotFoundException(
+        `patient with this ID: ${patientId} not found`,
+      );
+    }
   }
 }

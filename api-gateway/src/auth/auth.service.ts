@@ -65,4 +65,11 @@ export class AuthService {
       authorization,
     );
   }
+
+  async deletePatientById(patientId: string, authorization) {
+    return await deleteRequest(
+      `${url}/patient/delete/${patientId}`,
+      authorization,
+    );
+  }
 }
