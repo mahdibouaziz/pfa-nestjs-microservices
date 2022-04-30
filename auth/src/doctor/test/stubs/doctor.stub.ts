@@ -47,5 +47,8 @@ export const patientStub = (): RegisterPatientDto => {
     lastname: 'doctorTest1',
     phone: '20400417',
     birthday: new Date(2000, 1, 4),
+    governorate: 'Sfax',
+    treatingDay: 'Monday',
+    associatedDoctor: '11111111',
   };
 };

@@ -11,11 +11,13 @@ import { Patient, PatientDocument } from './entities/patient.entity';
 import { Model } from 'mongoose';
 import { LoginPatientDto } from './dto/login-patient.dto';
 import { paginationFuntion } from '../pagination-utils/paginationFunction';
+import { Doctor, DoctorDocument } from '../doctor/entities/doctor.entity';
 
 @Injectable()
 export class PatientService {
   constructor(
     @InjectModel(Patient.name) private patientModel: Model<PatientDocument>,
+    @InjectModel(Doctor.name) private doctorModel: Model<DoctorDocument>,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -39,6 +41,19 @@ export class PatientService {
     if (patient) {
       throw new ConflictException('This Patient already exists');
     }
+
+    try {
+      // verify the doctor id is correct
+      const doctor = await this.doctorModel.findById(
+        registerPatientDto.associatedDoctor,
+      );
+      if (!doctor) {
+        throw new NotFoundException('Doctor Not Found');
+      }
+    } catch (error) {
+      throw new NotFoundException('Doctor Not Found');
+    }
+
     // create the patient with the necessary fields
     patient = new this.patientModel({
       ...registerPatientDto,

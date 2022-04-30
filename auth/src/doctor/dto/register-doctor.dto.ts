@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsIn, IsNotEmpty } from 'class-validator';
 
 export class RegisterDoctorDto {
   @IsNotEmpty()
@@ -15,6 +15,7 @@ export class RegisterDoctorDto {
   @IsNotEmpty()
   password: string;
   @IsNotEmpty()
+  @IsIn(['doctor', 'nurse'])
   type: string;
 
   isAdmin: boolean;
