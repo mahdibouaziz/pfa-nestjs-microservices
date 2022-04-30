@@ -2,13 +2,17 @@ import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { MongooseModule } from '@nestjs/mongoose';
+import { AppointmentModule } from './appointment/appointment.module';
+import { DoctorAvailabilityModule } from './doctor-availability/doctor-availability.module';
+import { DatabaseModule } from './database/database.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      `mongodb://${process.env.DATABASE_USER}:${process.env.DATABASE_PASSWORD}@${process.env.DATABASE_LINK}/${process.env.DATABASE_NAME}?authSource=admin`,
-    ),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
+    DatabaseModule,
     ClientsModule.register([
       {
         name: 'AUTH_SERVICE',
@@ -24,6 +28,8 @@ import { MongooseModule } from '@nestjs/mongoose';
         },
       },
     ]),
+    AppointmentModule,
+    DoctorAvailabilityModule,
   ],
   controllers: [AppController],
   providers: [AppService],
