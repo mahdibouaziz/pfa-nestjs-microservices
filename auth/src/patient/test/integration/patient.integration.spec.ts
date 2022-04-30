@@ -13,6 +13,7 @@ describe('Patient Controller', () => {
   let dbConnection: Connection;
   let httpServer: any;
   let app: any;
+  let doctor;
   beforeAll(async () => {
     //create an entire app and initialize it
     const moduleRef = await Test.createTestingModule({
@@ -37,8 +38,13 @@ describe('Patient Controller', () => {
     await dbConnection
       .collection('doctors')
       .insertOne({ ...doctorStub(), salt, password });
-    // create a patient account
-    await dbConnection.collection('patients').insertOne({ ...patientStub() });
+    // create a patient account (it needs a doctor becaus each patient has associated doctor)
+    doctor = await dbConnection
+      .collection('doctors')
+      .findOne({ email: doctorStub().email });
+    await dbConnection
+      .collection('patients')
+      .insertOne({ ...patientStub(), associatedDoctor: doctor._id });
   });
   afterAll(async () => {
     // clear the collection
@@ -59,7 +65,7 @@ describe('Patient Controller', () => {
       //create a patient
       const registerResponse = await request(httpServer)
         .post('/patient/register')
-        .send(patientStub1())
+        .send({ ...patientStub1(), associatedDoctor: doctor._id })
         .set('Authorization', `Bearer ${loginResponse.body.accessToken}`);
       //   console.log('RESPONSE: ', registerResponse.body);
       //   console.log('RESPONSE: ', registerResponse.status);
