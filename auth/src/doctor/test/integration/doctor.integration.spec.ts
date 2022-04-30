@@ -10,7 +10,7 @@ import {
   patientStub,
 } from '../stubs/doctor.stub';
 import { AppModule } from '../../../app.module';
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 describe('Doctor Controller', () => {
   let dbConnection: Connection;

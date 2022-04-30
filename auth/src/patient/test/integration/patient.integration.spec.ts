@@ -3,7 +3,7 @@ import * as request from 'supertest';
 
 import { Connection } from 'mongoose';
 import { DatabaseService } from '../../../database/database.service';
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 import { AppModule } from '../../../app.module';
 import { doctorStub, patientStub1 } from '../stubs/patient.stub';

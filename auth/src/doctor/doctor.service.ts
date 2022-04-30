@@ -8,7 +8,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { RegisterDoctorDto } from './dto/register-doctor.dto';
 import { Doctor, DoctorDocument } from './entities/doctor.entity';
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { LoginDoctorDto } from './dto/login-doctor.dto';
 import { JwtService } from '@nestjs/jwt';
 import { paginationFuntion } from '../pagination-utils/paginationFunction';
