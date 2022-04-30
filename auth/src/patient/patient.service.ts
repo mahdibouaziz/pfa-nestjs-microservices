@@ -80,13 +80,29 @@ export class PatientService {
   async getAllPatients(pagesToSkip = 0, limitOfDocuments = 15, filter = '') {
     // this must returns: data, totalItems, totalPages
     const searchCriteria = ['firstname', 'lastname', 'cin', 'phone'];
-    return await paginationFuntion(
+    const result = await paginationFuntion(
       pagesToSkip,
       limitOfDocuments,
       filter,
       searchCriteria,
       this.patientModel,
+      'associatedDoctor',
     );
+
+    // console.log(result.data);
+
+    result.data.forEach((element) => {
+      element.associatedDoctor = {
+        _id: element.associatedDoctor._id,
+        firstname: element.associatedDoctor.firstname,
+        lastname: element.associatedDoctor.lastname,
+        email: element.associatedDoctor.email,
+        phone: element.associatedDoctor.phone,
+        isAdmin: element.associatedDoctor.isAdmin,
+      };
+    });
+    // console.log(result.data);
+    return result;
   }
 
   async deletePatientById(patientId: string) {

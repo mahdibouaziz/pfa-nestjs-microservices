@@ -6,6 +6,7 @@ export const paginationFuntion = async (
   filter = '',
   searchCriteria = [],
   model,
+  populate = '',
 ) => {
   // this must returns: data, totalItems, totalPages
   pagesToSkip = pagesToSkip * limitOfDocuments;
@@ -23,6 +24,7 @@ export const paginationFuntion = async (
 
   const data = await model
     .find(query)
+    .populate(populate)
     .sort({ _id: 1 })
     .skip(pagesToSkip)
     .limit(limitOfDocuments);
