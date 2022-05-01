@@ -51,7 +51,7 @@ export class RolesGuard implements CanActivate {
       newUser.roles.push(Role.Patient);
     }
 
-    console.log(newUser);
+    // console.log(newUser);
 
     const result = requiredRoles.some((role) => newUser.roles?.includes(role));
 

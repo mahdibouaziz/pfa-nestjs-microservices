@@ -17,8 +17,6 @@ export class DoctorAvailabilityController {
     registerDoctorAvailabilityDto: RegisterDoctorAvailabilityDto,
     @Body('payload') payload,
   ) {
-    // console.log(payload);
-    // console.log(registerDoctorAvailabilityDto);
     return this.doctorAvailabilityService.registerDoctorAvailability(
       registerDoctorAvailabilityDto,
       payload,
