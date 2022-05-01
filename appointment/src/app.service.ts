@@ -9,6 +9,10 @@ export class AppService {
     return 'Hello World!';
   }
 
+  async testAuth(body) {
+    return body;
+  }
+
   getAppointment() {
     this.authClient
       .send({ cmd: 'is_user_auth' }, { userId: 'No User' })

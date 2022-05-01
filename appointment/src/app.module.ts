@@ -6,6 +6,8 @@ import { AppointmentModule } from './appointment/appointment.module';
 import { DoctorAvailabilityModule } from './doctor-availability/doctor-availability.module';
 import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
+import { APP_GUARD } from '@nestjs/core';
+import { RolesGuard } from './authorization/roles.guard';
 
 @Module({
   imports: [
@@ -32,6 +34,13 @@ import { ConfigModule } from '@nestjs/config';
     DoctorAvailabilityModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    // Guard for the entire app (for roles)
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
+    },
+  ],
 })
 export class AppModule {}

@@ -40,14 +40,20 @@ export class RolesGuard implements CanActivate {
 
       if (newUser.type == 'nurse') {
         newUser.roles.push(Role.Nurse);
+        newUser.roles.push(Role.Patient);
       }
 
       if (newUser.type == 'doctor') {
         newUser.roles.push(Role.Doctor);
+        newUser.roles.push(Role.Nurse);
+        newUser.roles.push(Role.Patient);
       }
 
       if (newUser.isAdmin == true) {
         newUser.roles.push(Role.Admin);
+        newUser.roles.push(Role.Doctor);
+        newUser.roles.push(Role.Nurse);
+        newUser.roles.push(Role.Patient);
       }
 
       // console.log('USER:', newUser);

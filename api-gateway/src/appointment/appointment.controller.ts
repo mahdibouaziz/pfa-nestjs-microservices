@@ -6,8 +6,8 @@ import { AppointmentService } from './appointment.service';
 export class AppointmentController {
   constructor(private readonly appointmentService: AppointmentService) {}
 
-  @Get('/test')
-  test(@GetAuthorization() authorization) {
-    return this.appointmentService.test(authorization);
+  @Get('/test-auth')
+  testAuth(@GetAuthorization() authorization) {
+    return this.appointmentService.testAuth(authorization);
   }
 }
