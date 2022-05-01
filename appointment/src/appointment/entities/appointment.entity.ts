@@ -35,13 +35,13 @@ export class Appointment {
   status: string;
 
   // replicated data
-  @Prop()
+  @Prop({ default: '' })
   doctorLastname: string;
-  @Prop()
+  @Prop({ default: '' })
   patientCIN: string;
-  @Prop()
+  @Prop({ default: '' })
   patientBirthday: string;
-  @Prop()
+  @Prop({ default: '' })
   patientName: string;
 }
 

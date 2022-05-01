@@ -1,5 +1,5 @@
 import { Controller, Get, Request, UseGuards } from '@nestjs/common';
-import { EventPattern, MessagePattern } from '@nestjs/microservices';
+import { MessagePattern } from '@nestjs/microservices';
 import { AppService } from './app.service';
 import { JwtAuthGuard } from './auth/jwt/jwt-auth.guard';
 
@@ -17,12 +17,6 @@ export class AppController {
   authenticateUser(@Request() req) {
     // this must return the payload of the user if he is authenticated or throw an error (Unauthorized)
     return req.user;
-  }
-
-  // listen to event
-  @EventPattern('auth_event')
-  async listEvent(data) {
-    console.log('Event listening: ', data);
   }
 
   // listen to event and return a response

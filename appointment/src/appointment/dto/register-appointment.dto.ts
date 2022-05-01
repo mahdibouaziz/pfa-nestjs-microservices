@@ -1,6 +1,6 @@
 import { IsIn, IsNotEmpty } from 'class-validator';
 
-export class CreateAppointmentDto {
+export class RegisterAppointmentDto {
   @IsNotEmpty()
   patientId: string;
 
@@ -13,6 +13,7 @@ export class CreateAppointmentDto {
   @IsNotEmpty()
   time: string;
 
+  @IsNotEmpty()
   @IsIn(['consultation', 'hopital du jours'])
   type: string;
 }

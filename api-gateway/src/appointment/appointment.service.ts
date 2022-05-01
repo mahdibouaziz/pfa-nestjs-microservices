@@ -4,6 +4,7 @@ import {
   getRequest,
   postRequest,
 } from 'src/request-utils/request-util';
+import { RegisterAppointmentDto } from './dto/register-appointment.dto';
 import { RegisterDoctorAvailabilityDto } from './dto/register-doctor-availability.dto';
 
 const url = 'http://appointment:3000';
@@ -80,5 +81,22 @@ export class AppointmentService {
         payload,
       },
     );
+  }
+
+  // all about appointments
+
+  async registerAppointment(
+    registerAppointmentDto: RegisterAppointmentDto,
+    authorization,
+  ) {
+    // authenticate the user
+    const payload = await getRequest(authUrl, authorization);
+    // console.log(payload);
+    // send the data to the needed service
+
+    return await postRequest(`${url}/appointment/register`, {
+      payload,
+      registerAppointmentDto,
+    });
   }
 }

@@ -23,8 +23,8 @@ export const request = async (
 
     return response.data;
   } catch (error) {
-    console.log(error.response.data);
-    throw error.response.data;
+    console.log(error);
+    throw error;
   }
 };
 

@@ -9,6 +9,7 @@ import { RolesGuard } from './auth/authorization/roles.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './database/database.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { DatabaseModule } from './database/database.module';
     DoctorModule,
     AuthModule,
     PatientModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [

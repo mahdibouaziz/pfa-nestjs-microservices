@@ -20,6 +20,6 @@ export class AppController {
 
   @Get('/appointment')
   getAppointment() {
-    return this.appService.getAppointment();
+    // return this.appService.getAppointment();
   }
 }

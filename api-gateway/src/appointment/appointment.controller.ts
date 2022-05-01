@@ -10,6 +10,7 @@ import {
 import { GetAuthorization } from '../custom-decorators/get-authorization';
 import { PaginationParams } from '../pagination-utils/paginationParams';
 import { AppointmentService } from './appointment.service';
+import { RegisterAppointmentDto } from './dto/register-appointment.dto';
 import { RegisterDoctorAvailabilityDto } from './dto/register-doctor-availability.dto';
 
 @Controller('appointment')
@@ -70,6 +71,18 @@ export class AppointmentController {
   ) {
     return this.appointmentService.deleteDoctorAvailabilityById(
       availabilityId,
+      authorization,
+    );
+  }
+
+  // all about appointments
+  @Post('/register')
+  registerAppointment(
+    @Body() registerAppointmentDto: RegisterAppointmentDto,
+    @GetAuthorization() authorization,
+  ) {
+    return this.appointmentService.registerAppointment(
+      registerAppointmentDto,
       authorization,
     );
   }
