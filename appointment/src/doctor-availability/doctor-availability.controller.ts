@@ -43,7 +43,7 @@ export class DoctorAvailabilityController {
     );
   }
 
-  @Roles(Role.Doctor, Role.Admin)
+  @Roles(Role.Doctor, Role.Nurse, Role.Admin)
   @Post('/all')
   getAllDoctorAvailabilities(
     @Body('payload') payload,
