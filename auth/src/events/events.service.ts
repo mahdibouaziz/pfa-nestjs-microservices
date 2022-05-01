@@ -4,7 +4,8 @@ import { Doctor, DoctorDocument } from 'src/doctor/entities/doctor.entity';
 import { Patient, PatientDocument } from 'src/patient/entities/patient.entity';
 import { Model } from 'mongoose';
 import { ClientProxy } from '@nestjs/microservices';
-import { GetDoctorAndPatientInformationDto } from './dto/get-doctor-and-patient-information.dto';
+import { GetDoctorPatientInformationEventDto } from './dto/get-doctor-patient-information-event.dto';
+import { ReturnDoctorPatientInformationEventDto } from './dto/return-doctor-patient-information-event.dto';
 
 @Injectable()
 export class EventsService {
@@ -14,7 +15,9 @@ export class EventsService {
     @Inject('APPOINTMENT_SERVICE') private appointmentClient: ClientProxy,
   ) {}
 
-  async getDoctorAndPatientInformation(data) {
+  async getDoctorAndPatientInformation(
+    data: GetDoctorPatientInformationEventDto,
+  ) {
     const doctor = await this.doctorModel.findOne({
       _id: data.doctorId,
     });
@@ -26,17 +29,19 @@ export class EventsService {
     // console.log('DOCTOR: ', doctor);
     // console.log('PATIENT: ', patient);
     // console.log('Appointment ID: ', data.appointmentId);
-    const returnData: GetDoctorAndPatientInformationDto = {
-      doctorLastname: doctor.lastname,
-      patientCIN: patient.cin,
-      patientBirthday: patient.birthday,
-      patientName: `${patient.firstname} ${patient.lastname}`,
-    };
+    const returnDoctorPatientInformationEventDto: ReturnDoctorPatientInformationEventDto =
+      {
+        appointmentId: data.appointmentId,
+        doctorLastname: doctor.lastname,
+        patientCIN: patient.cin,
+        patientBirthday: patient.birthday,
+        patientName: `${patient.firstname} ${patient.lastname}`,
+      };
 
     // emit the needed data to the appointment service
-    this.appointmentClient.emit('return_doctor_patient_information', {
-      appointmentId: data.appointmentId,
-      data: returnData,
-    });
+    this.appointmentClient.emit(
+      'return_doctor_patient_information',
+      returnDoctorPatientInformationEventDto,
+    );
   }
 }

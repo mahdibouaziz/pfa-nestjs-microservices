@@ -4,6 +4,7 @@ import { Role } from 'src/authorization/role.enum';
 import { Roles } from 'src/authorization/roles.decorator';
 import { AppointmentService } from './appointment.service';
 import { RegisterAppointmentDto } from './dto/register-appointment.dto';
+import { ReturnDoctorPatientInformationEventDto } from './dto/return-doctor-patient-information-event.dto';
 
 @Controller('appointment')
 export class AppointmentController {
@@ -23,9 +24,10 @@ export class AppointmentController {
   }
 
   @EventPattern('return_doctor_patient_information')
-  async updateRegistredAppointment(data) {
-    console.log(data);
-    // this.eventsService.getDoctorAndPatientInformation(data);
+  async updateRegistredAppointment(
+    data: ReturnDoctorPatientInformationEventDto,
+  ) {
+    // console.log(data);
     return this.appointmentService.updateRegistredAppointment(data);
   }
 }
