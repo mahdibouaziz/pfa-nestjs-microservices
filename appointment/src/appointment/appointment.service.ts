@@ -18,6 +18,7 @@ export class AppointmentService {
 
   async registerAppointment(
     registerAppointmentDto: RegisterAppointmentDto,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     payload,
   ) {
     const appointment = new this.appointmentModel(registerAppointmentDto);
@@ -27,11 +28,24 @@ export class AppointmentService {
     this.authClient.emit('doctor_patient_information', {
       doctorId: registerAppointmentDto.doctorId,
       patientId: registerAppointmentDto.patientId,
+      appointmentId: appointment._id,
     });
 
     return {
       message: 'Appointment created',
       appointment,
     };
+  }
+
+  async updateRegistredAppointment(data) {
+    const appointment = await this.appointmentModel.findById(
+      data.appointmentId,
+    );
+    // update the appointment
+    appointment.doctorLastname = data.data.doctorLastname;
+    appointment.patientCIN = data.data.patientCIN;
+    appointment.patientBirthday = data.data.patientBirthday;
+    appointment.patientName = data.data.patientName;
+    await appointment.save();
   }
 }

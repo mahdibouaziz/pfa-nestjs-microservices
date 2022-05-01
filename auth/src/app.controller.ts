@@ -1,5 +1,4 @@
 import { Controller, Get, Request, UseGuards } from '@nestjs/common';
-import { MessagePattern } from '@nestjs/microservices';
 import { AppService } from './app.service';
 import { JwtAuthGuard } from './auth/jwt/jwt-auth.guard';
 
@@ -20,9 +19,9 @@ export class AppController {
   }
 
   // listen to event and return a response
-  @MessagePattern({ cmd: 'is_user_auth' })
-  async isUserAuth(data) {
-    console.log('Is User Auth:', data);
-    return false;
-  }
+  // @MessagePattern({ cmd: 'is_user_auth' })
+  // async isUserAuth(data) {
+  //   console.log('Is User Auth:', data);
+  //   return false;
+  // }
 }

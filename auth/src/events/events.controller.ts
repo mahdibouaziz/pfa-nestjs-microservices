@@ -7,7 +7,7 @@ export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
   // listen to the event coming from the appointments who want more information aboutthe doctor and patient
   @EventPattern('doctor_patient_information')
-  async listEvent(data) {
+  async getDoctorAndPatientInformation(data) {
     this.eventsService.getDoctorAndPatientInformation(data);
   }
 }

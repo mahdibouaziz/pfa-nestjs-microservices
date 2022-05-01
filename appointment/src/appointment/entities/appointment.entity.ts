@@ -40,7 +40,7 @@ export class Appointment {
   @Prop({ default: '' })
   patientCIN: string;
   @Prop({ default: '' })
-  patientBirthday: string;
+  patientBirthday: Date;
   @Prop({ default: '' })
   patientName: string;
 }

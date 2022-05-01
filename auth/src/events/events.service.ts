@@ -1,14 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Doctor, DoctorDocument } from 'src/doctor/entities/doctor.entity';
 import { Patient, PatientDocument } from 'src/patient/entities/patient.entity';
 import { Model } from 'mongoose';
+import { ClientProxy } from '@nestjs/microservices';
+import { GetDoctorAndPatientInformationDto } from './dto/get-doctor-and-patient-information.dto';
 
 @Injectable()
 export class EventsService {
   constructor(
     @InjectModel(Patient.name) private patientModel: Model<PatientDocument>,
     @InjectModel(Doctor.name) private doctorModel: Model<DoctorDocument>,
+    @Inject('APPOINTMENT_SERVICE') private appointmentClient: ClientProxy,
   ) {}
 
   async getDoctorAndPatientInformation(data) {
@@ -20,9 +23,20 @@ export class EventsService {
       _id: data.patientId,
     });
     // console.log(data);
-    console.log('DOCTOR: ', doctor);
-    console.log('PATIENT: ', patient);
+    // console.log('DOCTOR: ', doctor);
+    // console.log('PATIENT: ', patient);
+    // console.log('Appointment ID: ', data.appointmentId);
+    const returnData: GetDoctorAndPatientInformationDto = {
+      doctorLastname: doctor.lastname,
+      patientCIN: patient.cin,
+      patientBirthday: patient.birthday,
+      patientName: `${patient.firstname} ${patient.lastname}`,
+    };
 
     // emit the needed data to the appointment service
+    this.appointmentClient.emit('return_doctor_patient_information', {
+      appointmentId: data.appointmentId,
+      data: returnData,
+    });
   }
 }
