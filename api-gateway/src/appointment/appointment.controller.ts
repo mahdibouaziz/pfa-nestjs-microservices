@@ -1,6 +1,7 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { GetAuthorization } from 'src/custom-decorators/get-authorization';
 import { AppointmentService } from './appointment.service';
+import { RegisterDoctorAvailabilityDto } from './dto/register-doctor-availability.dto';
 
 @Controller('appointment')
 export class AppointmentController {
@@ -9,5 +10,17 @@ export class AppointmentController {
   @Get('/test-auth')
   testAuth(@GetAuthorization() authorization) {
     return this.appointmentService.testAuth(authorization);
+  }
+
+  // All about doctors availability
+  @Post('/register/doctor-availability')
+  registerDoctorAvailability(
+    @Body() registerDoctorAvailabilityDto: RegisterDoctorAvailabilityDto,
+    @GetAuthorization() authorization,
+  ) {
+    return this.appointmentService.registerDoctorAvailability(
+      registerDoctorAvailabilityDto,
+      authorization,
+    );
   }
 }

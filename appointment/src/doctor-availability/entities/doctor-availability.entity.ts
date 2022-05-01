@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
+import * as mongoose from 'mongoose';
+
 export type DoctorAvailabilityDocument = DoctorAvailability & Document;
 
 // startHour: Time;
@@ -23,7 +25,9 @@ export class DoctorAvailability {
   })
   day: string;
 
-  @Prop()
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+  })
   doctorId: string;
   // needed some data about the doctor
 
