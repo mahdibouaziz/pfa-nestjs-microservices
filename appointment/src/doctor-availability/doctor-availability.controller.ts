@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, Query } from '@nestjs/common';
 import { Role } from 'src/authorization/role.enum';
 import { Roles } from 'src/authorization/roles.decorator';
 import { PaginationParams } from 'src/pagination-utils/paginationParams';
@@ -58,6 +58,17 @@ export class DoctorAvailabilityController {
       skip,
       limit,
       filter,
+    );
+  }
+
+  @Delete('/delete/:availabilityId')
+  deleteDoctorAvailabilityById(
+    @Param('availabilityId') availabilityId: string,
+    @Body('payload') payload,
+  ) {
+    return this.doctorAvailabilityService.deleteDoctorAvailabilityById(
+      availabilityId,
+      payload,
     );
   }
 }

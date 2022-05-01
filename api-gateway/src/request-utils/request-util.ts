@@ -40,8 +40,12 @@ export const getRequest = async (url: string, authorization = {}) => {
   return await request('get', url, {}, authorization);
 };
 
-export const deleteRequest = async (url: string, authorization = {}) => {
-  return await request('delete', url, {}, authorization);
+export const deleteRequest = async (
+  url: string,
+  data = {},
+  authorization = {},
+) => {
+  return await request('delete', url, data, authorization);
 };
 
 export const putRequest = async (

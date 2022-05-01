@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { RegisterDoctorAvailabilityDto } from './dto/register-doctor-availability.dto';
 import { Model } from 'mongoose';
@@ -81,5 +85,43 @@ export class DoctorAvailabilityService {
       this.doctorAvailabilityModel,
       doctorQuery,
     );
+  }
+
+  async deleteDoctorAvailabilityById(availabilityId, payload) {
+    let availability;
+    try {
+      // get the availability
+      availability = await this.doctorAvailabilityModel.findById(
+        availabilityId,
+      );
+    } catch (error) {
+      throw new NotFoundException('Invalid Availability ID');
+    }
+
+    if (!availability) {
+      throw new NotFoundException('Doctor Availability not found');
+    }
+
+    // verify the doctorId = availability.doctorId / or the doctor is an admin
+    console.log(
+      availability.doctorId.toString(),
+      ' = ',
+      payload.doctorId.toString(),
+    );
+    if (
+      !payload.isAdmin &&
+      availability.doctorId.toString() != payload.doctorId
+    ) {
+      throw new UnauthorizedException(
+        'You are not authorized to delete this availability',
+      );
+    }
+
+    // delete it
+    await this.doctorAvailabilityModel.deleteOne({
+      _id: availability._id,
+    });
+
+    return { message: 'Doctor Availability deleted' };
   }
 }

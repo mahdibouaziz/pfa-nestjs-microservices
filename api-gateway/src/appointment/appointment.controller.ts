@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { GetAuthorization } from 'src/custom-decorators/get-authorization';
 import { PaginationParams } from 'src/pagination-utils/paginationParams';
 import { AppointmentService } from './appointment.service';
@@ -51,6 +59,17 @@ export class AppointmentController {
       skip,
       limit,
       filter,
+      authorization,
+    );
+  }
+
+  @Delete('/doctor-availability/delete/:availabilityId')
+  deleteDoctorAvailabilityById(
+    @Param('availabilityId') availabilityId: string,
+    @GetAuthorization() authorization,
+  ) {
+    return this.appointmentService.deleteDoctorAvailabilityById(
+      availabilityId,
       authorization,
     );
   }

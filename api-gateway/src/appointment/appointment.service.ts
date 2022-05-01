@@ -1,5 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { getRequest, postRequest } from 'src/request-utils/request-util';
+import {
+  deleteRequest,
+  getRequest,
+  postRequest,
+} from 'src/request-utils/request-util';
 import { RegisterDoctorAvailabilityDto } from './dto/register-doctor-availability.dto';
 
 const url = 'http://appointment:3000';
@@ -61,6 +65,17 @@ export class AppointmentService {
 
     return await postRequest(
       `${url}/doctor-availability/all?skip=${skip}&limit=${limit}&filter=${filter}${queryDayUrl}`,
+      {
+        payload,
+      },
+    );
+  }
+
+  async deleteDoctorAvailabilityById(availabilityId, authorization) {
+    // authenticate the user
+    const payload = await getRequest(authUrl, authorization);
+    return await deleteRequest(
+      `${url}/doctor-availability/delete/${availabilityId}`,
       {
         payload,
       },

@@ -39,6 +39,7 @@ export class AuthService {
   async deleteDoctorById(doctorId: string, authorization) {
     return await deleteRequest(
       `${url}/doctor/delete/${doctorId}`,
+      {},
       authorization,
     );
   }
@@ -69,6 +70,7 @@ export class AuthService {
   async deletePatientById(patientId: string, authorization) {
     return await deleteRequest(
       `${url}/patient/delete/${patientId}`,
+      {},
       authorization,
     );
   }
