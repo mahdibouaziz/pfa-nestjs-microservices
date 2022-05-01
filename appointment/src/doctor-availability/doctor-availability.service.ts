@@ -7,6 +7,7 @@ import {
   DoctorAvailabilityDocument,
 } from './entities/doctor-availability.entity';
 import { Day } from './days.enum';
+import { paginationFuntion } from 'src/pagination-utils/paginationFunction';
 
 @Injectable()
 export class DoctorAvailabilityService {
@@ -30,11 +31,29 @@ export class DoctorAvailabilityService {
     };
   }
 
-  async getMyDoctorAvailability(payload, day: Day) {
-    let query: any = { doctorId: payload.doctorId };
+  async getMyDoctorAvailability(
+    payload,
+    day: Day,
+    pagesToSkip = 0,
+    limitOfDocuments = 15,
+    filter = '',
+  ) {
+    let doctorQuery: any = { doctorId: payload.doctorId };
     if (day) {
-      query = { ...query, day };
+      doctorQuery = { ...doctorQuery, day };
     }
-    return await this.doctorAvailabilityModel.find(query);
+
+    // return await this.doctorAvailabilityModel.find(query);
+    const searchCriteria = ['type'];
+
+    console.log('doctorquery', doctorQuery);
+    return await paginationFuntion(
+      pagesToSkip,
+      limitOfDocuments,
+      filter,
+      searchCriteria,
+      this.doctorAvailabilityModel,
+      doctorQuery,
+    );
   }
 }

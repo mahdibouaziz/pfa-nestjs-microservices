@@ -28,15 +28,23 @@ export class AppointmentService {
     });
   }
 
-  async getMyDoctorAvailability(day, authorization) {
+  async getMyDoctorAvailability(
+    day,
+    skip = 0,
+    limit = 15,
+    filter = '',
+    authorization,
+  ) {
     // authenticate the user
     const payload = await getRequest(authUrl, authorization);
 
-    const queryUrl = day ? `day=${day}` : '';
-    console.log(queryUrl);
+    const queryDayUrl = day ? `day=${day}` : '';
 
-    return await postRequest(`${url}/doctor-availability/mine?${queryUrl}`, {
-      payload,
-    });
+    return await postRequest(
+      `${url}/doctor-availability/mine?skip=${skip}&limit=${limit}&filter=${filter}${queryDayUrl}`,
+      {
+        payload,
+      },
+    );
   }
 }

@@ -6,11 +6,6 @@ import { Day } from '../days.enum';
 
 export type DoctorAvailabilityDocument = DoctorAvailability & Document;
 
-// startHour: Time;
-// endHour: Time
-// type: string; (enum: ['pending', 'canceled', 'done'])
-// nbMaxAppointments : int
-
 @Schema()
 export class DoctorAvailability {
   @Prop({

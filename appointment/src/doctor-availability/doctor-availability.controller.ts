@@ -1,6 +1,7 @@
 import { Body, Controller, Post, Query } from '@nestjs/common';
 import { Role } from 'src/authorization/role.enum';
 import { Roles } from 'src/authorization/roles.decorator';
+import { PaginationParams } from 'src/pagination-utils/paginationParams';
 import { Day } from './days.enum';
 import { DoctorAvailabilityService } from './doctor-availability.service';
 import { RegisterDoctorAvailabilityDto } from './dto/register-doctor-availability.dto';
@@ -26,9 +27,19 @@ export class DoctorAvailabilityController {
 
   @Roles(Role.Doctor, Role.Admin)
   @Post('/mine')
-  getMyDoctorAvailability(@Body('payload') payload, @Query('day') day: Day) {
-    console.log(day);
+  getMyDoctorAvailability(
+    @Body('payload') payload,
+    @Query('day') day: Day,
+    @Query() { skip, limit, filter }: PaginationParams,
+  ) {
+    console.log('DAY:', day);
 
-    return this.doctorAvailabilityService.getMyDoctorAvailability(payload, day);
+    return this.doctorAvailabilityService.getMyDoctorAvailability(
+      payload,
+      day,
+      skip,
+      limit,
+      filter,
+    );
   }
 }
