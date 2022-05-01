@@ -61,6 +61,7 @@ export class DoctorAvailabilityController {
     );
   }
 
+  @Roles(Role.Doctor, Role.Admin)
   @Delete('/delete/:availabilityId')
   deleteDoctorAvailabilityById(
     @Param('availabilityId') availabilityId: string,
