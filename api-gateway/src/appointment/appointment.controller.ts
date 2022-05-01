@@ -13,7 +13,7 @@ export class AppointmentController {
   }
 
   // All about doctors availability
-  @Post('/register/doctor-availability')
+  @Post('/doctor-availability/register')
   registerDoctorAvailability(
     @Body() registerDoctorAvailabilityDto: RegisterDoctorAvailabilityDto,
     @GetAuthorization() authorization,
