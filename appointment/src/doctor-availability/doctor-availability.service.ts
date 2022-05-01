@@ -6,12 +6,13 @@ import {
   DoctorAvailability,
   DoctorAvailabilityDocument,
 } from './entities/doctor-availability.entity';
+import { Day } from './days.enum';
 
 @Injectable()
 export class DoctorAvailabilityService {
   constructor(
     @InjectModel(DoctorAvailability.name)
-    private doctorModel: Model<DoctorAvailabilityDocument>,
+    private doctorAvailabilityModel: Model<DoctorAvailabilityDocument>,
   ) {}
 
   async registerDoctorAvailability(
@@ -19,7 +20,7 @@ export class DoctorAvailabilityService {
     payload,
   ) {
     registerDoctorAvailabilityDto.doctorId = payload.doctorId;
-    const doctorAvailability = new this.doctorModel(
+    const doctorAvailability = new this.doctorAvailabilityModel(
       registerDoctorAvailabilityDto,
     );
     await doctorAvailability.save();
@@ -27,5 +28,13 @@ export class DoctorAvailabilityService {
       message: 'Doctor availability created',
       doctorAvailability,
     };
+  }
+
+  async getMyDoctorAvailability(payload, day: Day) {
+    let query: any = { doctorId: payload.doctorId };
+    if (day) {
+      query = { ...query, day };
+    }
+    return await this.doctorAvailabilityModel.find(query);
   }
 }

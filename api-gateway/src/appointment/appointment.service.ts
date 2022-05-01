@@ -19,13 +19,24 @@ export class AppointmentService {
     authorization,
   ) {
     // authenticate the user
-
     const payload = await getRequest(authUrl, authorization);
     // console.log(payload);
     // send the data to the needed service
     return await postRequest(`${url}/doctor-availability/register`, {
       payload,
       registerDoctorAvailabilityDto,
+    });
+  }
+
+  async getMyDoctorAvailability(day, authorization) {
+    // authenticate the user
+    const payload = await getRequest(authUrl, authorization);
+
+    const queryUrl = day ? `day=${day}` : '';
+    console.log(queryUrl);
+
+    return await postRequest(`${url}/doctor-availability/mine?${queryUrl}`, {
+      payload,
     });
   }
 }

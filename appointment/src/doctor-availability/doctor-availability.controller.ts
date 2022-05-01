@@ -1,6 +1,7 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Query } from '@nestjs/common';
 import { Role } from 'src/authorization/role.enum';
 import { Roles } from 'src/authorization/roles.decorator';
+import { Day } from './days.enum';
 import { DoctorAvailabilityService } from './doctor-availability.service';
 import { RegisterDoctorAvailabilityDto } from './dto/register-doctor-availability.dto';
 
@@ -21,5 +22,13 @@ export class DoctorAvailabilityController {
       registerDoctorAvailabilityDto,
       payload,
     );
+  }
+
+  @Roles(Role.Doctor, Role.Admin)
+  @Post('/mine')
+  getMyDoctorAvailability(@Body('payload') payload, @Query('day') day: Day) {
+    console.log(day);
+
+    return this.doctorAvailabilityService.getMyDoctorAvailability(payload, day);
   }
 }
