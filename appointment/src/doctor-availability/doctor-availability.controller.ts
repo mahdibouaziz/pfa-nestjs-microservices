@@ -42,4 +42,22 @@ export class DoctorAvailabilityController {
       filter,
     );
   }
+
+  @Roles(Role.Doctor, Role.Admin)
+  @Post('/all')
+  getAllDoctorAvailabilities(
+    @Body('payload') payload,
+    @Query('day') day: Day,
+    @Query() { skip, limit, filter }: PaginationParams,
+  ) {
+    console.log('DAY:', day);
+
+    return this.doctorAvailabilityService.getAllDoctorAvailabilities(
+      payload,
+      day,
+      skip,
+      limit,
+      filter,
+    );
+  }
 }

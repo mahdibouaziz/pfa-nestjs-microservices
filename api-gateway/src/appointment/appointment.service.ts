@@ -38,10 +38,29 @@ export class AppointmentService {
     // authenticate the user
     const payload = await getRequest(authUrl, authorization);
 
-    const queryDayUrl = day ? `day=${day}` : '';
+    const queryDayUrl = day ? `&day=${day}` : '';
 
     return await postRequest(
       `${url}/doctor-availability/mine?skip=${skip}&limit=${limit}&filter=${filter}${queryDayUrl}`,
+      {
+        payload,
+      },
+    );
+  }
+  async getAllDoctorAvailabilities(
+    day,
+    skip = 0,
+    limit = 15,
+    filter = '',
+    authorization,
+  ) {
+    // authenticate the user
+    const payload = await getRequest(authUrl, authorization);
+
+    const queryDayUrl = day ? `&day=${day}` : '';
+
+    return await postRequest(
+      `${url}/doctor-availability/all?skip=${skip}&limit=${limit}&filter=${filter}${queryDayUrl}`,
       {
         payload,
       },

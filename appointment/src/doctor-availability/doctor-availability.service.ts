@@ -56,4 +56,30 @@ export class DoctorAvailabilityService {
       doctorQuery,
     );
   }
+
+  async getAllDoctorAvailabilities(
+    payload,
+    day: Day,
+    pagesToSkip = 0,
+    limitOfDocuments = 15,
+    filter = '',
+  ) {
+    let doctorQuery: any = {};
+    if (day) {
+      doctorQuery = { day };
+    }
+
+    // return await this.doctorAvailabilityModel.find(query);
+    const searchCriteria = ['type'];
+
+    console.log('doctorquery', doctorQuery);
+    return await paginationFuntion(
+      pagesToSkip,
+      limitOfDocuments,
+      filter,
+      searchCriteria,
+      this.doctorAvailabilityModel,
+      doctorQuery,
+    );
+  }
 }
