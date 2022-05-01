@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Param, Post, Query } from '@nestjs/common';
-import { Role } from 'src/authorization/role.enum';
-import { Roles } from 'src/authorization/roles.decorator';
-import { PaginationParams } from 'src/pagination-utils/paginationParams';
+import { Role } from '../authorization/role.enum';
+import { Roles } from '../authorization/roles.decorator';
+import { PaginationParams } from '../pagination-utils/paginationParams';
 import { Day } from './days.enum';
 import { DoctorAvailabilityService } from './doctor-availability.service';
 import { RegisterDoctorAvailabilityDto } from './dto/register-doctor-availability.dto';

@@ -7,8 +7,8 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { GetAuthorization } from 'src/custom-decorators/get-authorization';
-import { PaginationParams } from 'src/pagination-utils/paginationParams';
+import { GetAuthorization } from '../custom-decorators/get-authorization';
+import { PaginationParams } from '../pagination-utils/paginationParams';
 import { AppointmentService } from './appointment.service';
 import { RegisterDoctorAvailabilityDto } from './dto/register-doctor-availability.dto';
 

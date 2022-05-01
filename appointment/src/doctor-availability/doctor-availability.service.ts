@@ -11,7 +11,7 @@ import {
   DoctorAvailabilityDocument,
 } from './entities/doctor-availability.entity';
 import { Day } from './days.enum';
-import { paginationFuntion } from 'src/pagination-utils/paginationFunction';
+import { paginationFuntion } from '../pagination-utils/paginationFunction';
 
 @Injectable()
 export class DoctorAvailabilityService {
