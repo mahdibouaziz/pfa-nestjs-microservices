@@ -25,7 +25,7 @@ export class DoctorService {
     return doctor;
   }
 
-  async validateCredentials(loginDoctorDto: LoginDoctorDto): Promise<Doctor> {
+  async validateCredentials(loginDoctorDto: LoginDoctorDto) {
     // get the credentials
     const { email, password } = loginDoctorDto;
 
@@ -75,10 +75,11 @@ export class DoctorService {
 
   async loginDoctor(loginDoctorDto: LoginDoctorDto) {
     //validate the credentials and if they are invalid throw an error
-    const doctor: Doctor = await this.validateCredentials(loginDoctorDto);
+    const doctor = await this.validateCredentials(loginDoctorDto);
     // create the payload and return the access token
 
     const payload = {
+      doctorId: doctor._id,
       email: doctor.email,
       type: doctor.type,
       isAdmin: doctor.isAdmin,

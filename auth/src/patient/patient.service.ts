@@ -72,7 +72,11 @@ export class PatientService {
       throw new UnauthorizedException('Invalid Credentials');
     }
 
-    const payload = { cin: patient.cin, birthday: patient.birthday };
+    const payload = {
+      cin: patient.cin,
+      birthday: patient.birthday,
+      patientId: patient._id,
+    };
     const accessToken = await this.jwtService.sign(payload);
     return { accessToken };
   }
