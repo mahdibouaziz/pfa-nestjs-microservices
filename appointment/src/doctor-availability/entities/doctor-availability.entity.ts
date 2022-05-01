@@ -2,6 +2,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 import * as mongoose from 'mongoose';
+import { Day } from '../days.enum';
 
 export type DoctorAvailabilityDocument = DoctorAvailability & Document;
 
@@ -13,15 +14,7 @@ export type DoctorAvailabilityDocument = DoctorAvailability & Document;
 @Schema()
 export class DoctorAvailability {
   @Prop({
-    enum: [
-      'lundi',
-      'mardi',
-      'mercredi',
-      'jeudi',
-      'vendredi',
-      'samedi',
-      'dimanche',
-    ],
+    enum: Day,
   })
   day: string;
 

@@ -1,16 +1,12 @@
-import { IsIn, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsEnum, IsIn, IsNotEmpty, IsNumber } from 'class-validator';
+import { Day } from '../days.enum';
 
 export class RegisterDoctorAvailabilityDto {
   @IsNotEmpty()
-  @IsIn([
-    'lundi',
-    'mardi',
-    'mercredi',
-    'jeudi',
-    'vendredi',
-    'samedi',
-    'dimanche',
-  ])
+  @IsEnum(Day, {
+    message:
+      'The day must be in the enum: [lundi,mardi,mercredi,jeudi,vendredi,samedi,dimanche]',
+  })
   day: string;
 
   @IsNotEmpty()
