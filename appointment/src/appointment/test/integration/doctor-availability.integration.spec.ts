@@ -64,22 +64,22 @@ describe('Appointment Controller', () => {
     it('get my appointments with doctor payload', async () => {
       //
     });
+
+    it('get my appointments without an account (must fail)', async () => {
+      //
+    });
   });
 
-  describe('get all doctors appoitnments', () => {
-    it('get all appointments with patient payload (must fails)', async () => {
+  describe('get all appoitnments per day', () => {
+    it('get all appointments per dar with patient payload (must fails)', async () => {
       //
     });
 
-    it('get all appointments with nurse payload', async () => {
+    it('get all appointments per day with nurse payload', async () => {
       //
     });
 
-    it('get all appointments with doctor payload ', async () => {
-      //
-    });
-
-    it('get all appointmentswith doctor payload on specific day ', async () => {
+    it('get all appointments per day with doctor payload ', async () => {
       //
     });
   });
