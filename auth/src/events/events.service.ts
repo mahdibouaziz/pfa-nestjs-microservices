@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Doctor, DoctorDocument } from 'src/doctor/entities/doctor.entity';
-import { Patient, PatientDocument } from 'src/patient/entities/patient.entity';
+import { Doctor, DoctorDocument } from '../doctor/entities/doctor.entity';
+import { Patient, PatientDocument } from '../patient/entities/patient.entity';
 import { Model } from 'mongoose';
 import { ClientProxy } from '@nestjs/microservices';
 import { GetDoctorPatientInformationEventDto } from './dto/get-doctor-patient-information-event.dto';

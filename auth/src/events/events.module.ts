@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Doctor, DoctorSchema } from 'src/doctor/entities/doctor.entity';
-import { Patient, PatientSchema } from 'src/patient/entities/patient.entity';
+import { Doctor, DoctorSchema } from '../doctor/entities/doctor.entity';
+import { Patient, PatientSchema } from '../patient/entities/patient.entity';
 import { EventsController } from './events.controller';
 import { EventsService } from './events.service';
 

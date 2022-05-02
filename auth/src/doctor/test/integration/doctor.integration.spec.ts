@@ -13,7 +13,7 @@ import { AppModule } from '../../../app.module';
 import * as bcrypt from 'bcryptjs';
 
 describe('Doctor Controller', () => {
-  console.log('BCRYPT: ', bcrypt);
+  // console.log('BCRYPT: ', bcrypt);
   let dbConnection: Connection;
   let httpServer: any;
   let app: any;
