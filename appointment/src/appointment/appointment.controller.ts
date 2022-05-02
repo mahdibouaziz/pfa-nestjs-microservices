@@ -1,7 +1,9 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Post, Query } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
 import { Role } from 'src/authorization/role.enum';
 import { Roles } from 'src/authorization/roles.decorator';
+import { Day } from 'src/doctor-availability/days.enum';
+import { PaginationParams } from 'src/pagination-utils/paginationParams';
 import { AppointmentService } from './appointment.service';
 import { RegisterAppointmentDto } from './dto/register-appointment.dto';
 import { ReturnDoctorPatientInformationEventDto } from './dto/return-doctor-patient-information-event.dto';
@@ -29,5 +31,21 @@ export class AppointmentController {
   ) {
     // console.log(data);
     return this.appointmentService.updateRegistredAppointment(data);
+  }
+
+  @Roles(Role.Doctor, Role.Nurse, Role.Admin)
+  @Post('/all')
+  gellAllAppointments(
+    @Body('payload') payload,
+    @Query('day') day: Day,
+    @Query() { skip, limit, filter }: PaginationParams,
+  ) {
+    return this.appointmentService.gellAllAppointments(
+      payload,
+      day,
+      skip,
+      limit,
+      filter,
+    );
   }
 }

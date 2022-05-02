@@ -2,6 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Day } from 'src/doctor-availability/days.enum';
+import { paginationFuntion } from 'src/pagination-utils/paginationFunction';
 import { GetDoctorPatientInformationEventDto } from './dto/get-doctor-patient-information-event.dto';
 import { RegisterAppointmentDto } from './dto/register-appointment.dto';
 import { ReturnDoctorPatientInformationEventDto } from './dto/return-doctor-patient-information-event.dto';
@@ -56,5 +58,36 @@ export class AppointmentService {
     appointment.patientBirthday = data.patientBirthday;
     appointment.patientName = data.patientName;
     await appointment.save();
+  }
+
+  async gellAllAppointments(
+    payload,
+    day: Day,
+    pagesToSkip = 0,
+    limitOfDocuments = 15,
+    filter = '',
+  ) {
+    let doctorQuery: any = {};
+    if (day) {
+      doctorQuery = { day };
+    }
+
+    // return await this.doctorAvailabilityModel.find(query);
+    const searchCriteria = [
+      'doctorLastname',
+      'patientCIN',
+      'patientName',
+      'type',
+    ];
+
+    console.log('doctorquery', doctorQuery);
+    return await paginationFuntion(
+      pagesToSkip,
+      limitOfDocuments,
+      filter,
+      searchCriteria,
+      this.appointmentModel,
+      doctorQuery,
+    );
   }
 }

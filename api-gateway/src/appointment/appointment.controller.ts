@@ -86,4 +86,19 @@ export class AppointmentController {
       authorization,
     );
   }
+
+  @Get('/all')
+  getAllAppointments(
+    @Query('day') day: string,
+    @Query() { skip, limit, filter }: PaginationParams,
+    @GetAuthorization() authorization,
+  ) {
+    return this.appointmentService.getAllAppointments(
+      day,
+      skip,
+      limit,
+      filter,
+      authorization,
+    );
+  }
 }

@@ -52,6 +52,7 @@ export class AppointmentService {
       },
     );
   }
+
   async getAllDoctorAvailabilities(
     day,
     skip = 0,
@@ -98,5 +99,25 @@ export class AppointmentService {
       payload,
       registerAppointmentDto,
     });
+  }
+
+  async getAllAppointments(
+    day,
+    skip = 0,
+    limit = 15,
+    filter = '',
+    authorization,
+  ) {
+    // authenticate the user
+    const payload = await getRequest(authUrl, authorization);
+
+    const queryDayUrl = day ? `&day=${day}` : '';
+
+    return await postRequest(
+      `${url}/appointment/all?skip=${skip}&limit=${limit}&filter=${filter}${queryDayUrl}`,
+      {
+        payload,
+      },
+    );
   }
 }
