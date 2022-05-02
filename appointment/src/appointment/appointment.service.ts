@@ -80,7 +80,7 @@ export class AppointmentService {
       'type',
     ];
 
-    console.log('doctorquery', doctorQuery);
+    // console.log('doctorquery', doctorQuery);
     return await paginationFuntion(
       pagesToSkip,
       limitOfDocuments,
@@ -88,6 +88,37 @@ export class AppointmentService {
       searchCriteria,
       this.appointmentModel,
       doctorQuery,
+    );
+  }
+
+  async getMyAppointments(
+    payload,
+    day: Day,
+    pagesToSkip = 0,
+    limitOfDocuments = 15,
+    filter = '',
+  ) {
+    let myQuery: any = { patientId: payload.patientId };
+    if (day) {
+      myQuery = { ...myQuery, day };
+    }
+
+    // return await this.doctorAvailabilityModel.find(query);
+    const searchCriteria = [
+      'doctorLastname',
+      'patientCIN',
+      'patientName',
+      'type',
+    ];
+
+    // console.log('doctorquery', myQuery);
+    return await paginationFuntion(
+      pagesToSkip,
+      limitOfDocuments,
+      filter,
+      searchCriteria,
+      this.appointmentModel,
+      myQuery,
     );
   }
 }

@@ -7,13 +7,13 @@ export const paginationFuntion = async (
   filter = '',
   searchCriteria = [],
   model,
-  doctorQuery = {},
+  myQuery = {},
   populate = '',
 ) => {
   // this must returns: data, totalItems, totalPages
   pagesToSkip = pagesToSkip * limitOfDocuments;
   let query = {
-    ...doctorQuery,
+    ...myQuery,
   };
   filter = filter.toLowerCase().trim();
   if (filter.length > 0) {
@@ -26,7 +26,7 @@ export const paginationFuntion = async (
             return obj;
           }),
         },
-        { $or: [doctorQuery] },
+        { $or: [myQuery] },
       ],
     };
   }

@@ -101,4 +101,19 @@ export class AppointmentController {
       authorization,
     );
   }
+
+  @Get('/mine')
+  getMyAppointments(
+    @Query('day') day: string,
+    @Query() { skip, limit, filter }: PaginationParams,
+    @GetAuthorization() authorization,
+  ) {
+    return this.appointmentService.getMyAppointments(
+      day,
+      skip,
+      limit,
+      filter,
+      authorization,
+    );
+  }
 }

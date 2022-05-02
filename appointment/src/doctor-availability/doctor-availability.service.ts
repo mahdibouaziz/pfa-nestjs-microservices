@@ -50,7 +50,7 @@ export class DoctorAvailabilityService {
     // return await this.doctorAvailabilityModel.find(query);
     const searchCriteria = ['type'];
 
-    console.log('doctorquery', doctorQuery);
+    // console.log('doctorquery', doctorQuery);
     return await paginationFuntion(
       pagesToSkip,
       limitOfDocuments,
@@ -76,7 +76,7 @@ export class DoctorAvailabilityService {
     // return await this.doctorAvailabilityModel.find(query);
     const searchCriteria = ['type'];
 
-    console.log('doctorquery', doctorQuery);
+    // console.log('doctorquery', doctorQuery);
     return await paginationFuntion(
       pagesToSkip,
       limitOfDocuments,
