@@ -1,9 +1,9 @@
 import { Body, Controller, Post, Query } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
-import { Role } from 'src/authorization/role.enum';
-import { Roles } from 'src/authorization/roles.decorator';
-import { Day } from 'src/doctor-availability/days.enum';
-import { PaginationParams } from 'src/pagination-utils/paginationParams';
+import { Role } from '../authorization/role.enum';
+import { Roles } from '../authorization/roles.decorator';
+import { Day } from '../doctor-availability/days.enum';
+import { PaginationParams } from '../pagination-utils/paginationParams';
 import { AppointmentService } from './appointment.service';
 import { RegisterAppointmentDto } from './dto/register-appointment.dto';
 import { ReturnDoctorPatientInformationEventDto } from './dto/return-doctor-patient-information-event.dto';

@@ -3,7 +3,7 @@ import { ClientProxy } from '@nestjs/microservices';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Day } from 'src/doctor-availability/days.enum';
-import { paginationFuntion } from 'src/pagination-utils/paginationFunction';
+import { paginationFuntion } from '../pagination-utils/paginationFunction';
 import { GetDoctorPatientInformationEventDto } from './dto/get-doctor-patient-information-event.dto';
 import { RegisterAppointmentDto } from './dto/register-appointment.dto';
 import { ReturnDoctorPatientInformationEventDto } from './dto/return-doctor-patient-information-event.dto';
@@ -98,7 +98,14 @@ export class AppointmentService {
     limitOfDocuments = 15,
     filter = '',
   ) {
-    let myQuery: any = { patientId: payload.patientId };
+    let myQuery: any = {};
+    // check patient or doctor
+    if (payload.patientId) {
+      myQuery = { patientId: payload.patientId };
+    } else {
+      myQuery = { doctorId: payload.doctorId };
+    }
+
     if (day) {
       myQuery = { ...myQuery, day };
     }
