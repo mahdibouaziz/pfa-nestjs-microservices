@@ -22,11 +22,16 @@ export class AuthService {
   }
 
   async loginDoctor(loginDoctorDto: LoginDoctorDto, authorization) {
-    return await postRequest(
-      `${url}/doctor/login`,
-      loginDoctorDto,
-      authorization,
-    );
+    try {
+      return await postRequest(
+        `${url}/doctor/login`,
+        loginDoctorDto,
+        authorization,
+      );
+    } catch (error) {
+      // console.log(error.response.data);
+      return error.response.data;
+    }
   }
 
   async getAllDoctors(skip = 0, limit = 15, filter = '', authorization) {
