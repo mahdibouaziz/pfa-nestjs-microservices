@@ -50,11 +50,17 @@ export class AuthService {
   }
 
   async registerPatient(registerPatientDto: RegisterPatientDto, authorization) {
-    return await postRequest(
-      `${url}/patient/register`,
-      registerPatientDto,
-      authorization,
-    );
+    try {
+      console.log(registerPatientDto);
+      return await postRequest(
+        `${url}/patient/register`,
+        registerPatientDto,
+        authorization,
+      );
+    } catch (error) {
+      // console.log(error.response.data);
+      return error.response.data;
+    }
   }
 
   async loginPatient(loginPatientDto: LoginPatientDto, authorization) {
