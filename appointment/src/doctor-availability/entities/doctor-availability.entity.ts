@@ -23,7 +23,7 @@ export class DoctorAvailability {
   endHour: number;
 
   @Prop({
-    enum: ['consultation', 'hopital du jours'],
+    enum: ['consultation', 'hopital du jour'],
   })
   type: string;
 

@@ -14,6 +14,6 @@ export class RegisterAppointmentDto {
   time: string;
 
   @IsNotEmpty()
-  @IsIn(['consultation', 'hopital du jours'])
+  @IsIn(['consultation', 'hopital du jour'])
   type: string;
 }

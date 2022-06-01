@@ -24,7 +24,7 @@ export class Appointment {
   time: string;
 
   @Prop({
-    enum: ['consultation', 'hopital du jours'],
+    enum: ['consultation', 'hopital du jour'],
   })
   type: string;
 

@@ -18,8 +18,8 @@ export class RegisterDoctorAvailabilityDto {
   endHour: number;
 
   @IsNotEmpty()
-  @IsIn(['consultation', 'hopital du jours'])
-  type: string; // (enum: ['consultation', 'hopital du jours'])
+  @IsIn(['consultation', 'hopital du jour'])
+  type: string; // (enum: ['consultation', 'hopital du jour'])
 
   @IsNotEmpty()
   @IsNumber()
