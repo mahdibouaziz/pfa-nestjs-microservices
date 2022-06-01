@@ -12,7 +12,7 @@ export class DoctorAvailabilityController {
     private readonly doctorAvailabilityService: DoctorAvailabilityService,
   ) {}
 
-  @Roles(Role.Doctor, Role.Admin)
+  @Roles(Role.Doctor)
   @Post('/register')
   registerDoctorAvailability(
     @Body('registerDoctorAvailabilityDto')

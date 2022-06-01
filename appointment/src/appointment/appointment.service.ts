@@ -1,8 +1,12 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Day } from 'src/doctor-availability/days.enum';
+import {
+  DoctorAvailability,
+  DoctorAvailabilityDocument,
+} from 'src/doctor-availability/entities/doctor-availability.entity';
 import { paginationFuntion } from '../pagination-utils/paginationFunction';
 import { GetDoctorPatientInformationEventDto } from './dto/get-doctor-patient-information-event.dto';
 import { RegisterAppointmentDto } from './dto/register-appointment.dto';
@@ -17,6 +21,8 @@ export class AppointmentService {
   constructor(
     @InjectModel(Appointment.name)
     private appointmentModel: Model<AppointmentDocument>,
+    @InjectModel(DoctorAvailability.name)
+    private doctorAvailabilityModel: Model<DoctorAvailabilityDocument>,
     @Inject('AUTH_SERVICE') private authClient: ClientProxy,
   ) {}
 
@@ -26,6 +32,18 @@ export class AppointmentService {
     payload,
   ) {
     const appointment = new this.appointmentModel(registerAppointmentDto);
+
+    // check if the doctor is available in this day
+
+    const doctorAvailability = await this.doctorAvailabilityModel.find({
+      day: new Date(registerAppointmentDto.date).getDay(),
+      doctorId: registerAppointmentDto.doctorId,
+    });
+    console.log('doctorAvailability', doctorAvailability);
+    if (doctorAvailability.length < 1) {
+      throw new BadRequestException('This Doctor is not available in this day');
+    }
+
     await appointment.save();
     // send an event  (with rabbitMQ) to the auth microservice
     //and tell them that we need to get more information about this doctorId and the patientId

@@ -28,6 +28,7 @@ export class AppointmentController {
     @Body() registerDoctorAvailabilityDto: RegisterDoctorAvailabilityDto,
     @GetAuthorization() authorization,
   ) {
+    console.log('test: ', registerDoctorAvailabilityDto);
     return this.appointmentService.registerDoctorAvailability(
       registerDoctorAvailabilityDto,
       authorization,
@@ -72,16 +73,16 @@ export class AppointmentController {
   // }
 
   // all about appointments
-  // @Post('/register')
-  // registerAppointment(
-  //   @Body() registerAppointmentDto: RegisterAppointmentDto,
-  //   @GetAuthorization() authorization,
-  // ) {
-  //   return this.appointmentService.registerAppointment(
-  //     registerAppointmentDto,
-  //     authorization,
-  //   );
-  // }
+  @Post('/register')
+  registerAppointment(
+    @Body() registerAppointmentDto: RegisterAppointmentDto,
+    @GetAuthorization() authorization,
+  ) {
+    return this.appointmentService.registerAppointment(
+      registerAppointmentDto,
+      authorization,
+    );
+  }
 
   // @Get('/doctor/mine')
   // getMyDoctorAppointments(

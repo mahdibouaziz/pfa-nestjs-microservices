@@ -4,11 +4,16 @@ import { AppointmentController } from './appointment.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Appointment, AppointmentSchema } from './entities/appointment.entity';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import {
+  DoctorAvailability,
+  DoctorAvailabilitySchema,
+} from 'src/doctor-availability/entities/doctor-availability.entity';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: Appointment.name, schema: AppointmentSchema },
+      { name: DoctorAvailability.name, schema: DoctorAvailabilitySchema },
     ]),
     ClientsModule.register([
       {

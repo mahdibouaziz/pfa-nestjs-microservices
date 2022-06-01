@@ -79,20 +79,23 @@ export class AppointmentService {
 
   // // all about appointments
 
-  // async registerAppointment(
-  //   registerAppointmentDto: RegisterAppointmentDto,
-  //   authorization,
-  // ) {
-  //   // authenticate the user
-  //   const payload = await getRequest(authUrl, authorization);
-  //   // console.log(payload);
-  //   // send the data to the needed service
-
-  //   return await postRequest(`${url}/appointment/register`, {
-  //     payload,
-  //     registerAppointmentDto,
-  //   });
-  // }
+  async registerAppointment(
+    registerAppointmentDto: RegisterAppointmentDto,
+    authorization,
+  ) {
+    // authenticate the user
+    const payload = await getRequest(authUrl, authorization);
+    // console.log(payload);
+    // send the data to the needed service
+    try {
+      return await postRequest(`${url}/appointment/register`, {
+        payload,
+        registerAppointmentDto,
+      });
+    } catch (error) {
+      return error.response.data;
+    }
+  }
 
   // async getMyDoctorAppointments(date, authorization) {
   //   // authenticate the user
