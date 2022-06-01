@@ -1,4 +1,5 @@
 import {
+  Inject,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -12,12 +13,16 @@ import {
 } from './entities/doctor-availability.entity';
 import { Day } from './days.enum';
 import { paginationFuntion } from '../pagination-utils/paginationFunction';
+import { ClientProxy } from '@nestjs/microservices';
+import { GetDoctorInformationEventDto } from './dto/get-doctor-information-event.dto';
+import { ReturnDoctorInformationEventDto } from './dto/return-doctor-information-event.dto';
 
 @Injectable()
 export class DoctorAvailabilityService {
   constructor(
     @InjectModel(DoctorAvailability.name)
     private doctorAvailabilityModel: Model<DoctorAvailabilityDocument>,
+    @Inject('AUTH_SERVICE') private authClient: ClientProxy,
   ) {}
 
   async registerDoctorAvailability(
@@ -29,10 +34,33 @@ export class DoctorAvailabilityService {
       registerDoctorAvailabilityDto,
     );
     await doctorAvailability.save();
+
+    // rabbit MQ here must be
+
+    const getDoctorInformationEventDto: GetDoctorInformationEventDto = {
+      doctorId: registerDoctorAvailabilityDto.doctorId,
+      doctorAvailabilityId: doctorAvailability._id,
+    };
+
+    this.authClient.emit('doctor_information', getDoctorInformationEventDto);
+
     return {
       message: 'Doctor availability created',
       doctorAvailability,
     };
+  }
+
+  async updateRegistredDoctorAvailability(
+    data: ReturnDoctorInformationEventDto,
+  ) {
+    const doctorAvailability = await this.doctorAvailabilityModel.findById(
+      data.doctorAvailabilityId,
+    );
+    // update the appointment
+    doctorAvailability.firstname = data.doctorFirstname;
+    doctorAvailability.lastname = data.doctorLastname;
+
+    await doctorAvailability.save();
   }
 
   async getMyDoctorAvailability(

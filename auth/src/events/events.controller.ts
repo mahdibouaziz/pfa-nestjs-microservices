@@ -1,5 +1,6 @@
 import { Controller } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
+import { GetDoctorInformationEventDto } from './dto/get-doctor-information-event.dto';
 import { GetDoctorPatientInformationEventDto } from './dto/get-doctor-patient-information-event.dto';
 import { EventsService } from './events.service';
 
@@ -12,5 +13,10 @@ export class EventsController {
     data: GetDoctorPatientInformationEventDto,
   ) {
     this.eventsService.getDoctorAndPatientInformation(data);
+  }
+
+  @EventPattern('doctor_information')
+  async getDoctorInformation(data: GetDoctorInformationEventDto) {
+    this.eventsService.getDoctorInformation(data);
   }
 }

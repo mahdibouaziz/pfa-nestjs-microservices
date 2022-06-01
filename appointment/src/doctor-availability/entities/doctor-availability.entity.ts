@@ -2,16 +2,13 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 import * as mongoose from 'mongoose';
-import { Day } from '../days.enum';
 
 export type DoctorAvailabilityDocument = DoctorAvailability & Document;
 
 @Schema()
 export class DoctorAvailability {
-  @Prop({
-    enum: Day,
-  })
-  day: string;
+  @Prop()
+  day: number;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
@@ -32,6 +29,12 @@ export class DoctorAvailability {
 
   @Prop()
   nbMaxAppointments: number;
+
+  @Prop()
+  firstname: string;
+
+  @Prop()
+  lastname: string;
 }
 
 export const DoctorAvailabilitySchema =

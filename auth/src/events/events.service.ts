@@ -6,6 +6,8 @@ import { Model } from 'mongoose';
 import { ClientProxy } from '@nestjs/microservices';
 import { GetDoctorPatientInformationEventDto } from './dto/get-doctor-patient-information-event.dto';
 import { ReturnDoctorPatientInformationEventDto } from './dto/return-doctor-patient-information-event.dto';
+import { GetDoctorInformationEventDto } from './dto/get-doctor-information-event.dto';
+import { ReturnDoctorInformationEventDto } from './dto/return-doctor-information-event.dto';
 
 @Injectable()
 export class EventsService {
@@ -42,6 +44,24 @@ export class EventsService {
     this.appointmentClient.emit(
       'return_doctor_patient_information',
       returnDoctorPatientInformationEventDto,
+    );
+  }
+
+  async getDoctorInformation(data: GetDoctorInformationEventDto) {
+    const doctor = await this.doctorModel.findOne({
+      _id: data.doctorId,
+    });
+
+    const returnDoctorInformationEventDto: ReturnDoctorInformationEventDto = {
+      doctorAvailabilityId: data.doctorAvailabilityId,
+      doctorLastname: doctor.lastname,
+      doctorFirstname: doctor.firstname,
+    };
+
+    // emit the needed data to the appointment service
+    this.appointmentClient.emit(
+      'return_doctor_information',
+      returnDoctorInformationEventDto,
     );
   }
 }
