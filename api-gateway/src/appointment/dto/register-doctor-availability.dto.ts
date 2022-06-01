@@ -4,5 +4,4 @@ export class RegisterDoctorAvailabilityDto {
   endHour: number;
   type: string; // (enum: ['consultation', 'hopital du jours'])
   nbMaxAppointments: number;
-  doctorId: string;
 }

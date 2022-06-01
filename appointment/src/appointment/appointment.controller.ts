@@ -33,25 +33,25 @@ export class AppointmentController {
     return this.appointmentService.updateRegistredAppointment(data);
   }
 
-  @Roles(Role.Doctor)
-  @Post('/doctor/mine')
-  getMyDoctorAppointments(@Body('payload') payload, @Query('date') date: Date) {
-    return this.appointmentService.getMyDoctorAppointments(payload, date);
-  }
+  // @Roles(Role.Doctor)
+  // @Post('/doctor/mine')
+  // getMyDoctorAppointments(@Body('payload') payload, @Query('date') date: Date) {
+  //   return this.appointmentService.getMyDoctorAppointments(payload, date);
+  // }
 
-  @Roles(Role.Doctor, Role.Nurse, Role.Admin)
-  @Post('/all')
-  gellAllAppointments(
-    @Body('payload') payload,
-    @Query('day') day: Day,
-    @Query() { skip, limit, filter }: PaginationParams,
-  ) {
-    return this.appointmentService.gellAllAppointments(
-      payload,
-      day,
-      skip,
-      limit,
-      filter,
-    );
-  }
+  // @Roles(Role.Doctor, Role.Nurse, Role.Admin)
+  // @Post('/all')
+  // gellAllAppointments(
+  //   @Body('payload') payload,
+  //   @Query('day') day: Day,
+  //   @Query() { skip, limit, filter }: PaginationParams,
+  // ) {
+  //   return this.appointmentService.gellAllAppointments(
+  //     payload,
+  //     day,
+  //     skip,
+  //     limit,
+  //     filter,
+  //   );
+  // }
 }

@@ -7,8 +7,9 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { PaginationParams } from 'src/pagination-utils/paginationParams';
 import { GetAuthorization } from '../custom-decorators/get-authorization';
-import { PaginationParams } from '../pagination-utils/paginationParams';
+
 import { AppointmentService } from './appointment.service';
 import { RegisterAppointmentDto } from './dto/register-appointment.dto';
 import { RegisterDoctorAvailabilityDto } from './dto/register-doctor-availability.dto';
@@ -34,46 +35,46 @@ export class AppointmentController {
     );
   }
 
-  @Get('/doctor-availability/mine')
-  getMyDoctorAvailability(
-    @Query('day') day: string,
-    @Query() { skip, limit, filter }: PaginationParams,
-    @GetAuthorization() authorization,
-  ) {
-    return this.appointmentService.getMyDoctorAvailability(
-      day,
-      skip,
-      limit,
-      filter,
-      authorization,
-    );
-  }
+  // @Get('/doctor-availability/mine')
+  // getMyDoctorAvailability(
+  //   @Query('day') day: string,
+  //   @Query() { skip, limit, filter }: PaginationParams,
+  //   @GetAuthorization() authorization,
+  // ) {
+  //   return this.appointmentService.getMyDoctorAvailability(
+  //     day,
+  //     skip,
+  //     limit,
+  //     filter,
+  //     authorization,
+  //   );
+  // }
 
-  @Get('/doctor-availability/all')
-  getAllDoctorAvailabilities(
-    @Query('day') day: string,
-    @Query() { skip, limit, filter }: PaginationParams,
-    @GetAuthorization() authorization,
-  ) {
-    return this.appointmentService.getAllDoctorAvailabilities(
-      day,
-      skip,
-      limit,
-      filter,
-      authorization,
-    );
-  }
+  // @Get('/doctor-availability/all')
+  // getAllDoctorAvailabilities(
+  //   @Query('day') day: string,
+  //   @Query() { skip, limit, filter }: PaginationParams,
+  //   @GetAuthorization() authorization,
+  // ) {
+  //   return this.appointmentService.getAllDoctorAvailabilities(
+  //     day,
+  //     skip,
+  //     limit,
+  //     filter,
+  //     authorization,
+  //   );
+  // }
 
-  @Delete('/doctor-availability/delete/:availabilityId')
-  deleteDoctorAvailabilityById(
-    @Param('availabilityId') availabilityId: string,
-    @GetAuthorization() authorization,
-  ) {
-    return this.appointmentService.deleteDoctorAvailabilityById(
-      availabilityId,
-      authorization,
-    );
-  }
+  // @Delete('/doctor-availability/delete/:availabilityId')
+  // deleteDoctorAvailabilityById(
+  //   @Param('availabilityId') availabilityId: string,
+  //   @GetAuthorization() authorization,
+  // ) {
+  //   return this.appointmentService.deleteDoctorAvailabilityById(
+  //     availabilityId,
+  //     authorization,
+  //   );
+  // }
 
   // all about appointments
   @Post('/register')
@@ -87,26 +88,26 @@ export class AppointmentController {
     );
   }
 
-  @Get('/doctor/mine')
-  getMyDoctorAppointments(
-    @Query('date') date: Date,
-    @GetAuthorization() authorization,
-  ) {
-    return this.appointmentService.getMyDoctorAppointments(date, authorization);
-  }
+  // @Get('/doctor/mine')
+  // getMyDoctorAppointments(
+  //   @Query('date') date: Date,
+  //   @GetAuthorization() authorization,
+  // ) {
+  //   return this.appointmentService.getMyDoctorAppointments(date, authorization);
+  // }
 
-  @Get('/all')
-  getAllAppointments(
-    @Query('day') day: string,
-    @Query() { skip, limit, filter }: PaginationParams,
-    @GetAuthorization() authorization,
-  ) {
-    return this.appointmentService.getAllAppointments(
-      day,
-      skip,
-      limit,
-      filter,
-      authorization,
-    );
-  }
+  // @Get('/all')
+  // getAllAppointments(
+  //   @Query('day') day: string,
+  //   @Query() { skip, limit, filter }: PaginationParams,
+  //   @GetAuthorization() authorization,
+  // ) {
+  //   return this.appointmentService.getAllAppointments(
+  //     day,
+  //     skip,
+  //     limit,
+  //     filter,
+  //     authorization,
+  //   );
+  // }
 }
