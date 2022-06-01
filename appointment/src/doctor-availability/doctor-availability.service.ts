@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Inject,
   Injectable,
   NotFoundException,
@@ -33,6 +34,14 @@ export class DoctorAvailabilityService {
     const doctorAvailability = new this.doctorAvailabilityModel(
       registerDoctorAvailabilityDto,
     );
+
+    if (
+      registerDoctorAvailabilityDto.endHour <
+      registerDoctorAvailabilityDto.startHour
+    ) {
+      throw new BadRequestException('End Hour must be > start Hour');
+    }
+
     await doctorAvailability.save();
 
     // rabbit MQ here must be

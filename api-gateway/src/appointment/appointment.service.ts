@@ -27,10 +27,15 @@ export class AppointmentService {
     const payload = await getRequest(authUrl, authorization);
     // console.log(payload);
     // send the data to the needed service
-    return await postRequest(`${url}/doctor-availability/register`, {
-      payload,
-      registerDoctorAvailabilityDto,
-    });
+    try {
+      return await postRequest(`${url}/doctor-availability/register`, {
+        payload,
+        registerDoctorAvailabilityDto,
+      });
+    } catch (error) {
+      // console.log(error);
+      return error.response.data;
+    }
   }
 
   async getMyDoctorAvailability(
