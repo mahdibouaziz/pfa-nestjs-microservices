@@ -87,6 +87,14 @@ export class AppointmentController {
     );
   }
 
+  @Get('/doctor/mine')
+  getMyDoctorAppointments(
+    @Query('date') date: Date,
+    @GetAuthorization() authorization,
+  ) {
+    return this.appointmentService.getMyDoctorAppointments(date, authorization);
+  }
+
   @Get('/all')
   getAllAppointments(
     @Query('day') day: string,
@@ -100,13 +108,5 @@ export class AppointmentController {
       filter,
       authorization,
     );
-  }
-
-  @Get('/doctor/mine')
-  getMyDoctorAppointments(
-    @Query('date') date: Date,
-    @GetAuthorization() authorization,
-  ) {
-    return this.appointmentService.getMyDoctorAppointments(date, authorization);
   }
 }
