@@ -53,79 +53,67 @@ export class AppointmentService {
     );
   }
 
-  async getAllDoctorAvailabilities(
-    day,
-    skip = 0,
-    limit = 15,
-    filter = '',
-    authorization,
-  ) {
+  async getAllDoctorAvailabilitiesPerWeekDay(day, authorization) {
     // authenticate the user
     const payload = await getRequest(authUrl, authorization);
-
-    const queryDayUrl = day ? `&day=${day}` : '';
-
-    return await postRequest(
-      `${url}/doctor-availability/all?skip=${skip}&limit=${limit}&filter=${filter}${queryDayUrl}`,
-      {
-        payload,
-      },
-    );
-  }
-
-  async deleteDoctorAvailabilityById(availabilityId, authorization) {
-    // authenticate the user
-    const payload = await getRequest(authUrl, authorization);
-    return await deleteRequest(
-      `${url}/doctor-availability/delete/${availabilityId}`,
-      {
-        payload,
-      },
-    );
-  }
-
-  // all about appointments
-
-  async registerAppointment(
-    registerAppointmentDto: RegisterAppointmentDto,
-    authorization,
-  ) {
-    // authenticate the user
-    const payload = await getRequest(authUrl, authorization);
-    // console.log(payload);
-    // send the data to the needed service
-
-    return await postRequest(`${url}/appointment/register`, {
-      payload,
-      registerAppointmentDto,
-    });
-  }
-
-  async getMyDoctorAppointments(date, authorization) {
-    // authenticate the user
-    const payload = await getRequest(authUrl, authorization);
-    return await postRequest(`${url}/appointment/doctor/mine?date=${date}`, {
+    return await postRequest(`${url}/doctor-availability/all?day=${day}`, {
       payload,
     });
   }
 
-  async getAllAppointments(
-    day,
-    skip = 0,
-    limit = 15,
-    filter = '',
-    authorization,
-  ) {
-    // authenticate the user
-    const payload = await getRequest(authUrl, authorization);
+  // async deleteDoctorAvailabilityById(availabilityId, authorization) {
+  //   // authenticate the user
+  //   const payload = await getRequest(authUrl, authorization);
+  //   return await deleteRequest(
+  //     `${url}/doctor-availability/delete/${availabilityId}`,
+  //     {
+  //       payload,
+  //     },
+  //   );
+  // }
 
-    const queryDayUrl = day ? `&day=${day}` : '';
+  // // all about appointments
 
-    return await postRequest(
-      `${url}/appointment/all?skip=${skip}&limit=${limit}&filter=${filter}${queryDayUrl}`,
-      {
-        payload,
-      },
-    );
-  }
+  // async registerAppointment(
+  //   registerAppointmentDto: RegisterAppointmentDto,
+  //   authorization,
+  // ) {
+  //   // authenticate the user
+  //   const payload = await getRequest(authUrl, authorization);
+  //   // console.log(payload);
+  //   // send the data to the needed service
+
+  //   return await postRequest(`${url}/appointment/register`, {
+  //     payload,
+  //     registerAppointmentDto,
+  //   });
+  // }
+
+  // async getMyDoctorAppointments(date, authorization) {
+  //   // authenticate the user
+  //   const payload = await getRequest(authUrl, authorization);
+  //   return await postRequest(`${url}/appointment/doctor/mine?date=${date}`, {
+  //     payload,
+  //   });
+  // }
+
+  // async getAllAppointments(
+  //   day,
+  //   skip = 0,
+  //   limit = 15,
+  //   filter = '',
+  //   authorization,
+  // ) {
+  //   // authenticate the user
+  //   const payload = await getRequest(authUrl, authorization);
+
+  //   const queryDayUrl = day ? `&day=${day}` : '';
+
+  //   return await postRequest(
+  //     `${url}/appointment/all?skip=${skip}&limit=${limit}&filter=${filter}${queryDayUrl}`,
+  //     {
+  //       payload,
+  //     },
+  //   );
+  // }
 }

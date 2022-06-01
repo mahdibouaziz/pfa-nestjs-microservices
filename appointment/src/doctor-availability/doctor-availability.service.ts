@@ -63,6 +63,15 @@ export class DoctorAvailabilityService {
     await doctorAvailability.save();
   }
 
+  async getAllDoctorAvailabilitiesPerWeekDay(payload, day: number) {
+    try {
+      return await this.doctorAvailabilityModel.find({ day });
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
   // async getMyDoctorAvailability(
   //   payload,
   //   day: Day,
@@ -73,32 +82,6 @@ export class DoctorAvailabilityService {
   //   let doctorQuery: any = { doctorId: payload.doctorId };
   //   if (day) {
   //     doctorQuery = { ...doctorQuery, day };
-  //   }
-
-  //   // return await this.doctorAvailabilityModel.find(query);
-  //   const searchCriteria = ['type'];
-
-  //   // console.log('doctorquery', doctorQuery);
-  //   return await paginationFuntion(
-  //     pagesToSkip,
-  //     limitOfDocuments,
-  //     filter,
-  //     searchCriteria,
-  //     this.doctorAvailabilityModel,
-  //     doctorQuery,
-  //   );
-  // }
-
-  // async getAllDoctorAvailabilities(
-  //   payload,
-  //   day: Day,
-  //   pagesToSkip = 0,
-  //   limitOfDocuments = 15,
-  //   filter = '',
-  // ) {
-  //   let doctorQuery: any = {};
-  //   if (day) {
-  //     doctorQuery = { day };
   //   }
 
   //   // return await this.doctorAvailabilityModel.find(query);

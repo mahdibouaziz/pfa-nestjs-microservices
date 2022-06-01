@@ -1,9 +1,7 @@
 import { Body, Controller, Post, Query } from '@nestjs/common';
 import { EventPattern } from '@nestjs/microservices';
-import { PaginationParams } from 'src/pagination-utils/paginationParams';
 import { Role } from '../authorization/role.enum';
 import { Roles } from '../authorization/roles.decorator';
-import { Day } from './days.enum';
 import { DoctorAvailabilityService } from './doctor-availability.service';
 import { RegisterDoctorAvailabilityDto } from './dto/register-doctor-availability.dto';
 import { ReturnDoctorInformationEventDto } from './dto/return-doctor-information-event.dto';
@@ -37,6 +35,18 @@ export class DoctorAvailabilityController {
     );
   }
 
+  @Roles(Role.Doctor, Role.Nurse, Role.Admin)
+  @Post('/all')
+  getAllDoctorAvailabilitiesPerWeekDay(
+    @Body('payload') payload,
+    @Query('day') day: number,
+  ) {
+    return this.doctorAvailabilityService.getAllDoctorAvailabilitiesPerWeekDay(
+      payload,
+      day,
+    );
+  }
+
   // @Roles(Role.Doctor, Role.Admin)
   // @Post('/mine')
   // getMyDoctorAvailability(
@@ -47,24 +57,6 @@ export class DoctorAvailabilityController {
   //   console.log('DAY:', day);
 
   //   return this.doctorAvailabilityService.getMyDoctorAvailability(
-  //     payload,
-  //     day,
-  //     skip,
-  //     limit,
-  //     filter,
-  //   );
-  // }
-
-  // @Roles(Role.Doctor, Role.Nurse, Role.Admin)
-  // @Post('/all')
-  // getAllDoctorAvailabilities(
-  //   @Body('payload') payload,
-  //   @Query('day') day: Day,
-  //   @Query() { skip, limit, filter }: PaginationParams,
-  // ) {
-  //   console.log('DAY:', day);
-
-  //   return this.doctorAvailabilityService.getAllDoctorAvailabilities(
   //     payload,
   //     day,
   //     skip,

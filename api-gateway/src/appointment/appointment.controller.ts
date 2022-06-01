@@ -7,7 +7,6 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { PaginationParams } from 'src/pagination-utils/paginationParams';
 import { GetAuthorization } from '../custom-decorators/get-authorization';
 
 import { AppointmentService } from './appointment.service';
@@ -35,6 +34,17 @@ export class AppointmentController {
     );
   }
 
+  @Get('/doctor-availability/all')
+  getAllDoctorAvailabilitiesPerWeekDay(
+    @Query('day') day: number,
+    @GetAuthorization() authorization,
+  ) {
+    return this.appointmentService.getAllDoctorAvailabilitiesPerWeekDay(
+      day,
+      authorization,
+    );
+  }
+
   // @Get('/doctor-availability/mine')
   // getMyDoctorAvailability(
   //   @Query('day') day: string,
@@ -42,21 +52,6 @@ export class AppointmentController {
   //   @GetAuthorization() authorization,
   // ) {
   //   return this.appointmentService.getMyDoctorAvailability(
-  //     day,
-  //     skip,
-  //     limit,
-  //     filter,
-  //     authorization,
-  //   );
-  // }
-
-  // @Get('/doctor-availability/all')
-  // getAllDoctorAvailabilities(
-  //   @Query('day') day: string,
-  //   @Query() { skip, limit, filter }: PaginationParams,
-  //   @GetAuthorization() authorization,
-  // ) {
-  //   return this.appointmentService.getAllDoctorAvailabilities(
   //     day,
   //     skip,
   //     limit,
@@ -77,16 +72,16 @@ export class AppointmentController {
   // }
 
   // all about appointments
-  @Post('/register')
-  registerAppointment(
-    @Body() registerAppointmentDto: RegisterAppointmentDto,
-    @GetAuthorization() authorization,
-  ) {
-    return this.appointmentService.registerAppointment(
-      registerAppointmentDto,
-      authorization,
-    );
-  }
+  // @Post('/register')
+  // registerAppointment(
+  //   @Body() registerAppointmentDto: RegisterAppointmentDto,
+  //   @GetAuthorization() authorization,
+  // ) {
+  //   return this.appointmentService.registerAppointment(
+  //     registerAppointmentDto,
+  //     authorization,
+  //   );
+  // }
 
   // @Get('/doctor/mine')
   // getMyDoctorAppointments(
