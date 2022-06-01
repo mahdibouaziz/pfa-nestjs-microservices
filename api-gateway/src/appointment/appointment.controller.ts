@@ -95,11 +95,11 @@ export class AppointmentController {
     );
   }
 
-  // @Get('/doctor/mine')
-  // getMyDoctorAppointments(
-  //   @Query('date') date: Date,
-  //   @GetAuthorization() authorization,
-  // ) {
-  //   return this.appointmentService.getMyDoctorAppointments(date, authorization);
-  // }
+  @Get('/doctor/mine')
+  getMyDoctorAppointments(
+    @Query('date') date: Date,
+    @GetAuthorization() authorization,
+  ) {
+    return this.appointmentService.getMyDoctorAppointments(date, authorization);
+  }
 }

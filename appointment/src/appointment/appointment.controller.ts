@@ -37,9 +37,9 @@ export class AppointmentController {
     return this.appointmentService.gellAllAppointments(payload, date);
   }
 
-  // @Roles(Role.Doctor)
-  // @Post('/doctor/mine')
-  // getMyDoctorAppointments(@Body('payload') payload, @Query('date') date: Date) {
-  //   return this.appointmentService.getMyDoctorAppointments(payload, date);
-  // }
+  @Roles(Role.Doctor)
+  @Post('/doctor/mine')
+  getMyDoctorAppointments(@Body('payload') payload, @Query('date') date: Date) {
+    return this.appointmentService.getMyDoctorAppointments(payload, date);
+  }
 }

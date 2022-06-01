@@ -102,11 +102,16 @@ export class AppointmentService {
     });
   }
 
-  // async getMyDoctorAppointments(date, authorization) {
-  //   // authenticate the user
-  //   const payload = await getRequest(authUrl, authorization);
-  //   return await postRequest(`${url}/appointment/doctor/mine?date=${date}`, {
-  //     payload,
-  //   });
-  // }
+  async getMyDoctorAppointments(date, authorization) {
+    // authenticate the user
+    const payload = await getRequest(authUrl, authorization);   
+    try{
+
+      return await postRequest(`${url}/appointment/doctor/mine?date=${date}`, {
+        payload,
+      });
+    } catch(error){
+      return error.response.data;
+    }
+  }
 }
