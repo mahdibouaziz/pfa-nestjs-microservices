@@ -1,9 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {
-  deleteRequest,
-  getRequest,
-  postRequest,
-} from 'src/request-utils/request-util';
+import { getRequest, postRequest } from 'src/request-utils/request-util';
 import { RegisterAppointmentDto } from './dto/register-appointment.dto';
 import { RegisterDoctorAvailabilityDto } from './dto/register-doctor-availability.dto';
 
