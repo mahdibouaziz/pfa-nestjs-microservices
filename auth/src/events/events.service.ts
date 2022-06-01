@@ -35,6 +35,7 @@ export class EventsService {
       {
         appointmentId: data.appointmentId,
         doctorLastname: doctor.lastname,
+        doctorFirstname: doctor.firstname,
         patientCIN: patient.cin,
         patientBirthday: patient.birthday,
         patientName: `${patient.firstname} ${patient.lastname}`,

@@ -7,7 +7,6 @@ import {
   DoctorAvailability,
   DoctorAvailabilityDocument,
 } from 'src/doctor-availability/entities/doctor-availability.entity';
-import { paginationFuntion } from '../pagination-utils/paginationFunction';
 import { GetDoctorPatientInformationEventDto } from './dto/get-doctor-patient-information-event.dto';
 import { RegisterAppointmentDto } from './dto/register-appointment.dto';
 import { ReturnDoctorPatientInformationEventDto } from './dto/return-doctor-patient-information-event.dto';
@@ -72,41 +71,37 @@ export class AppointmentService {
     );
     // update the appointment
     appointment.doctorLastname = data.doctorLastname;
+    appointment.doctorFirstName = data.doctorFirstname;
     appointment.patientCIN = data.patientCIN;
     appointment.patientBirthday = data.patientBirthday;
     appointment.patientName = data.patientName;
     await appointment.save();
   }
 
-  async gellAllAppointments(
-    payload,
-    day: Day,
-    pagesToSkip = 0,
-    limitOfDocuments = 15,
-    filter = '',
-  ) {
-    let doctorQuery: any = {};
-    if (day) {
-      doctorQuery = { day };
+  async gellAllAppointments(payload, date: Date) {
+    const appointmentsPerDate = await this.appointmentModel.find({
+      date: new Date(date),
+    });
+
+    const appointmentsPerDayAndDoctor: any = {};
+
+    for (let i = 0; i < appointmentsPerDate.length; i++) {
+      if (
+        appointmentsPerDayAndDoctor.hasOwnProperty(
+          appointmentsPerDate[i].doctorId,
+        )
+      ) {
+        appointmentsPerDayAndDoctor[appointmentsPerDate[i].doctorId] = [
+          ...appointmentsPerDayAndDoctor[appointmentsPerDate[i].doctorId],
+          appointmentsPerDate[i],
+        ];
+      } else
+        appointmentsPerDayAndDoctor[appointmentsPerDate[i].doctorId] = [
+          appointmentsPerDate[i],
+        ];
     }
 
-    // return await this.doctorAvailabilityModel.find(query);
-    const searchCriteria = [
-      'doctorLastname',
-      'patientCIN',
-      'patientName',
-      'type',
-    ];
-
-    // console.log('doctorquery', doctorQuery);
-    return await paginationFuntion(
-      pagesToSkip,
-      limitOfDocuments,
-      filter,
-      searchCriteria,
-      this.appointmentModel,
-      doctorQuery,
-    );
+    return appointmentsPerDayAndDoctor;
   }
 
   async getMyDoctorAppointments(payload, date: Date) {

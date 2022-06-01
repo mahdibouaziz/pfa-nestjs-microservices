@@ -84,26 +84,22 @@ export class AppointmentController {
     );
   }
 
+  @Get('/all')
+  getAllAppointmentsPerDate(
+    @Query('date') date: Date,
+    @GetAuthorization() authorization,
+  ) {
+    return this.appointmentService.getAllAppointmentsPerDate(
+      date,
+      authorization,
+    );
+  }
+
   // @Get('/doctor/mine')
   // getMyDoctorAppointments(
   //   @Query('date') date: Date,
   //   @GetAuthorization() authorization,
   // ) {
   //   return this.appointmentService.getMyDoctorAppointments(date, authorization);
-  // }
-
-  // @Get('/all')
-  // getAllAppointments(
-  //   @Query('day') day: string,
-  //   @Query() { skip, limit, filter }: PaginationParams,
-  //   @GetAuthorization() authorization,
-  // ) {
-  //   return this.appointmentService.getAllAppointments(
-  //     day,
-  //     skip,
-  //     limit,
-  //     filter,
-  //     authorization,
-  //   );
   // }
 }

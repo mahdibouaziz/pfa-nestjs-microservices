@@ -38,6 +38,8 @@ export class Appointment {
   @Prop({ default: '' })
   doctorLastname: string;
   @Prop({ default: '' })
+  doctorFirstName: string;
+  @Prop({ default: '' })
   patientCIN: string;
   @Prop({ default: '' })
   patientBirthday: Date;
