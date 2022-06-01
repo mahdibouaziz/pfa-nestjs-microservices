@@ -33,22 +33,10 @@ export class AppointmentController {
     return this.appointmentService.updateRegistredAppointment(data);
   }
 
-  @Roles(Role.Patient)
-  @Post('/mine')
-  getMyAppointments(
-    @Body('payload') payload,
-    @Query('day') day: Day,
-    @Query() { skip, limit, filter }: PaginationParams,
-  ) {
-    console.log('DAY:', day);
-
-    return this.appointmentService.getMyAppointments(
-      payload,
-      day,
-      skip,
-      limit,
-      filter,
-    );
+  @Roles(Role.Doctor)
+  @Post('/doctor/mine')
+  getMyDoctorAppointments(@Body('payload') payload, @Query('date') date: Date) {
+    return this.appointmentService.getMyDoctorAppointments(payload, date);
   }
 
   @Roles(Role.Doctor, Role.Nurse, Role.Admin)

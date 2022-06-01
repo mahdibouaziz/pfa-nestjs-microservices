@@ -102,18 +102,11 @@ export class AppointmentController {
     );
   }
 
-  @Get('/mine')
-  getMyAppointments(
-    @Query('day') day: string,
-    @Query() { skip, limit, filter }: PaginationParams,
+  @Get('/doctor/mine')
+  getMyDoctorAppointments(
+    @Query('date') date: Date,
     @GetAuthorization() authorization,
   ) {
-    return this.appointmentService.getMyAppointments(
-      day,
-      skip,
-      limit,
-      filter,
-      authorization,
-    );
+    return this.appointmentService.getMyDoctorAppointments(date, authorization);
   }
 }

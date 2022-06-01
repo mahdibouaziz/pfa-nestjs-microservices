@@ -8,7 +8,7 @@ export class RegisterAppointmentDto {
   doctorId: string;
 
   @IsNotEmpty()
-  date: string;
+  date: Date;
 
   @IsNotEmpty()
   time: string;

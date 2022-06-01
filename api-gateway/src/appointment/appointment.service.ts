@@ -121,23 +121,11 @@ export class AppointmentService {
     );
   }
 
-  async getMyAppointments(
-    day,
-    skip = 0,
-    limit = 15,
-    filter = '',
-    authorization,
-  ) {
+  async getMyDoctorAppointments(date, authorization) {
     // authenticate the user
     const payload = await getRequest(authUrl, authorization);
-
-    const queryDayUrl = day ? `&day=${day}` : '';
-
-    return await postRequest(
-      `${url}/appointment/mine?skip=${skip}&limit=${limit}&filter=${filter}${queryDayUrl}`,
-      {
-        payload,
-      },
-    );
+    return await postRequest(`${url}/appointment/doctor/mine?date=${date}`, {
+      payload,
+    });
   }
 }

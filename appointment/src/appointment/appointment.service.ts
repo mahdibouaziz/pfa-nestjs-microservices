@@ -91,41 +91,18 @@ export class AppointmentService {
     );
   }
 
-  async getMyAppointments(
-    payload,
-    day: Day,
-    pagesToSkip = 0,
-    limitOfDocuments = 15,
-    filter = '',
-  ) {
-    let myQuery: any = {};
-    // check patient or doctor
-    if (payload.patientId) {
-      myQuery = { patientId: payload.patientId };
-    } else {
-      myQuery = { doctorId: payload.doctorId };
+  async getMyDoctorAppointments(payload, date: Date) {
+    const { doctorId } = payload;
+
+    try {
+      const response = await this.appointmentModel.find({
+        doctorId,
+        date,
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
     }
-
-    if (day) {
-      myQuery = { ...myQuery, day };
-    }
-
-    // return await this.doctorAvailabilityModel.find(query);
-    const searchCriteria = [
-      'doctorLastname',
-      'patientCIN',
-      'patientName',
-      'type',
-    ];
-
-    // console.log('doctorquery', myQuery);
-    return await paginationFuntion(
-      pagesToSkip,
-      limitOfDocuments,
-      filter,
-      searchCriteria,
-      this.appointmentModel,
-      myQuery,
-    );
   }
 }

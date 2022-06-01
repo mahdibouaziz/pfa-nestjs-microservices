@@ -1,7 +1,7 @@
 export class RegisterAppointmentDto {
   patientId: string;
   doctorId: string;
-  date: string;
+  date: Date;
   time: string;
   type: string;
 }

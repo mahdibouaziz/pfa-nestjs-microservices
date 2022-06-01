@@ -18,7 +18,7 @@ export class Appointment {
   doctorId: string;
 
   @Prop()
-  date: string;
+  date: Date;
 
   @Prop()
   time: string;
