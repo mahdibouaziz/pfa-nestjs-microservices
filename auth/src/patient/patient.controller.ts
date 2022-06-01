@@ -46,4 +46,11 @@ export class PatientController {
   async deletePatientById(@Param('patientId') patientId: string) {
     return this.patientService.deletePatientById(patientId);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Roles(Role.Doctor)
+  @Get('/doctor/all/:doctorId')
+  getPatientsByDoctor(@Param('doctorId') doctorId: string) {
+    return this.patientService.getPatientsByDoctor(doctorId);
+  }
 }

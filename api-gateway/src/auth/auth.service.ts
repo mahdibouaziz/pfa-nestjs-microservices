@@ -49,6 +49,13 @@ export class AuthService {
     );
   }
 
+  async getPatientsByDoctor(doctorId, authorization) {
+    return await getRequest(
+      `${url}/patient/doctor/all/${doctorId}`,
+      authorization,
+    );
+  }
+
   async registerPatient(registerPatientDto: RegisterPatientDto, authorization) {
     try {
       console.log(registerPatientDto);

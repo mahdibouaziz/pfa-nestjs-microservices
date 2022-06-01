@@ -127,4 +127,17 @@ export class PatientService {
       );
     }
   }
+
+  async getPatientsByDoctor(doctorId: string) {
+    console.log('doctorId: ', doctorId);
+    try {
+      const response = await this.patientModel.find({
+        associatedDoctor: doctorId,
+      });
+      return response;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
 }

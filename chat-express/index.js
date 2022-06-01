@@ -21,13 +21,17 @@ dotenv.config();
 app.use(express.json());
 app.use(cors());
 
-// socket io part
 io.on("connection", (socket) => {
-  console.log("connected");
-  console.log(socket.id, "Has joined");
-  socket.on("signin", (id) => {
-    console.log("id: ", id);
-    //
+  const userid = socket.handshake.headers.userid;
+  console.log("userrrr", userid);
+  socket.join(userid);
+  socket.on("private_message", (data) => {
+    console.log(data);
+    socket.to(userid).to(data.targetId).emit("private message", {
+      content: data.message,
+      from: userid,
+      to: data.targetId,
+    });
   });
 });
 

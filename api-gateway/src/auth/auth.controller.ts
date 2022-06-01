@@ -53,6 +53,16 @@ export class AuthController {
     return this.authService.deleteDoctorById(doctorId, authorization);
   }
 
+  // Patient Part
+
+  @Get('/patients/doctor/all/:doctorId')
+  async getPatientsByDoctor(
+    @GetAuthorization() authorization,
+    @Param('doctorId') doctorId: string,
+  ) {
+    return this.authService.getPatientsByDoctor(doctorId, authorization);
+  }
+
   @Post('/patient/register')
   async registerPatient(
     @Body() registerPatientDto: RegisterPatientDto,
