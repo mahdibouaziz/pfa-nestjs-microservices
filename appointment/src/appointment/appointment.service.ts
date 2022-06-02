@@ -128,7 +128,7 @@ export class AppointmentService {
         .find({
           patientId,
         })
-        .sort({ date: 'desc' });
+        .sort({ date: 'asc' });
       console.log(response);
       return response;
     } catch (error) {
