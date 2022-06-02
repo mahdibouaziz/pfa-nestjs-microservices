@@ -42,4 +42,10 @@ export class AppointmentController {
   getMyDoctorAppointments(@Body('payload') payload, @Query('date') date: Date) {
     return this.appointmentService.getMyDoctorAppointments(payload, date);
   }
+
+  @Roles(Role.Patient)
+  @Post('/patient/all')
+  getMyPatientAppointments(@Body('payload') payload) {
+    return this.appointmentService.getMyPatientAppointments(payload);
+  }
 }

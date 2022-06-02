@@ -102,4 +102,9 @@ export class AppointmentController {
   ) {
     return this.appointmentService.getMyDoctorAppointments(date, authorization);
   }
+
+  @Get('/patient/all')
+  getMyPatientAppointments(@GetAuthorization() authorization) {
+    return this.appointmentService.getMyPatientAppointments(authorization);
+  }
 }

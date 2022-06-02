@@ -104,13 +104,24 @@ export class AppointmentService {
 
   async getMyDoctorAppointments(date, authorization) {
     // authenticate the user
-    const payload = await getRequest(authUrl, authorization);   
-    try{
-
+    const payload = await getRequest(authUrl, authorization);
+    try {
       return await postRequest(`${url}/appointment/doctor/mine?date=${date}`, {
         payload,
       });
-    } catch(error){
+    } catch (error) {
+      return error.response.data;
+    }
+  }
+
+  async getMyPatientAppointments(authorization) {
+    // authenticate the user
+    const payload = await getRequest(authUrl, authorization);
+    try {
+      return await postRequest(`${url}/appointment/patient/all`, {
+        payload,
+      });
+    } catch (error) {
       return error.response.data;
     }
   }

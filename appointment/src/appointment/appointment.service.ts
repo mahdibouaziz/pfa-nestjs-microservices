@@ -118,4 +118,22 @@ export class AppointmentService {
       throw error;
     }
   }
+
+  // getMyPatientAppointments
+  async getMyPatientAppointments(payload) {
+    const { patientId } = payload;
+
+    try {
+      const response = await this.appointmentModel
+        .find({
+          patientId,
+        })
+        .sort({ date: 'desc' });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
 }
