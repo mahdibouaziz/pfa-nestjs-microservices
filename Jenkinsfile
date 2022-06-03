@@ -9,7 +9,7 @@ pipeline {
                 //sh 'docker build -t marwenhihi/reviewservice:1.0 -f review/Dockerfile .'
                 //sh 'docker build -t marwenhihi/userservice:1.0 -f user/Dockerfile .'
                 //sh 'docker build -t marwenhihi/kong:1.0 -f kong/Dockerfile .' 
-                // dsf
+            
 
             }
         }  
