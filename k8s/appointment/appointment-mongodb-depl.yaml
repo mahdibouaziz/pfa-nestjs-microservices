@@ -24,15 +24,13 @@ spec:
               value: admin
             - name: MONGO_INITDB_ROOT_PASSWORD
               value: admin
-          volumeMounts:
-            - mountPath: /data/db
-              name: appointment-db
-      volumes:
-        - name: appointment-db
-          persistentVolumeClaim:
-            claimName: azure-disk-pvc
-
-# VOLUMES
+      #     volumeMounts:
+      #       - mountPath: /data/db
+      #         name: appointment-db
+      # volumes:
+      #   - name: appointment-db
+      #     persistentVolumeClaim:
+      #       claimName: azure-disk-pvc
 
 ---
 apiVersion: v1
