@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: game-demo
+data:
+  RABBITMQ_USER: "guest"
+  RABBITMQ_PASSWORD: "guest"
+  RABBITMQ_AUTH_QUEUE_NAME: "auth_queue"
+  RABBITMQ_HOST: "rabbitmq:5672"
+  RABBITMQ_APPOINTMENT_QUEUE_NAME: "appointment_queue"
+
+  DATABASE_USER: "admin"
+  DATABASE_PASSWORD: "admin"
+
+  APPOINTMENT_DATABASE_NAME: "appointments"
+  APPOINTMENT_DATABASE_TEST_NAME: "test_appointment"
+  APPOINTMENT_DATABASE_LINK: "appointment_mongodb:27017"
+
+  AUTH_DATABASE_NAME: "auths"
+  AUTH_DATABASE_TEST_NAME: "test_auth"
+  AUTH_DATABASE_LINK: "auth_mongodb:27017"
