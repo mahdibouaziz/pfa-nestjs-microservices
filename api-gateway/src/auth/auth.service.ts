@@ -24,7 +24,7 @@ export class AuthService {
       return error.response.data;
     }
   }
-
+  // dsd
   async loginDoctor(loginDoctorDto: LoginDoctorDto, authorization) {
     try {
       return await postRequest(
