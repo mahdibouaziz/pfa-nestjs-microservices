@@ -11,27 +11,24 @@ pipeline {
             }
         }
 
-         stage("test") {
+         stage("Test") {
             steps {
                 script {
-                    // echo "Testing the application"
                     gv.testApp()
                 }
             }
         }
 
-        stage("build image") {
+        stage("Build Docker image") {
             steps {
                 script {
-                    // echo "building image"
                     gv.buildImage()
                 }
             }
         }
-        stage("deploy") {
+        stage("Deploy") {
             steps {
                 script {
-                    // echo "deploying"
                     gv.deployApp()
                 }
             }

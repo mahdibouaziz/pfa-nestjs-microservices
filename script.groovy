@@ -5,11 +5,11 @@ def testApp() {
 
 def buildImage() {
     echo "building the docker image..."
-    // withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-    //     sh 'docker build -t nanajanashia/demo-app:jma-2.0 .'
-    //     sh "echo $PASS | docker login -u $USER --password-stdin"
-    //     sh 'docker push nanajanashia/demo-app:jma-2.0'
-    // }
+    withCredentials([usernamePassword(credentialsId: 'DockerHub-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+        sh 'docker build -t mahdibouaziz/aerosoft-microservices .'
+        sh "echo $PASS | docker login -u $USER --password-stdin"
+        sh 'docker push mahdibouaziz/aerosoft-microservices'
+    }
 } 
 
 def deployApp() {
