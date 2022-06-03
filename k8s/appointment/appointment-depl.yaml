@@ -19,25 +19,64 @@ spec:
             - containerPort: 3000
           env:
             - name: DATABASE_USER
-              value: admin
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: DATABASE_USER
+
             - name: DATABASE_PASSWORD
-              value: admin
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: DATABASE_PASSWORD
+
             - name: DATABASE_NAME
-              value: appointments
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: APPOINTMENT_DATABASE_NAME
+
             - name: DATABASE_TEST_NAME
-              value: test_appointment
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: APPOINTMENT_DATABASE_TEST_NAME
+
             - name: DATABASE_LINK
-              value: appointment_mongodb:27017
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: APPOINTMENT_DATABASE_LINK
+
             - name: RABBITMQ_USER
-              value: guest
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: RABBITMQ_USER
+
             - name: RABBITMQ_PASSWORD
-              value: guest
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: RABBITMQ_PASSWORD
+
             - name: RABBITMQ_HOST
-              value: rabbitmq:5672
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: RABBITMQ_HOST
+
             - name: RABBITMQ_AUTH_QUEUE_NAME
-              value: auth_queue
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: RABBITMQ_AUTH_QUEUE_NAME
+
             - name: RABBITMQ_APPOINTMENT_QUEUE_NAME
-              value: appointment_queue
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: RABBITMQ_APPOINTMENT_QUEUE_NAME
 
 ---
 apiVersion: v1
