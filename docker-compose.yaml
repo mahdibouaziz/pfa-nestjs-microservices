@@ -1,28 +1,28 @@
 version: "3.9"
 services:
-  api-gateway:
-    container_name: api-gateway
-    build:
-      context: ./api-gateway/
-    command: "npm run start:dev"
-    ports:
-      - 8000:3000
-    volumes:
-      - ./api-gateway/:/app
-    networks:
-      - pfa
+  # api-gateway:
+  #   container_name: api-gateway
+  #   build:
+  #     context: ./api-gateway/
+  #   command: "npm run start:dev"
+  #   ports:
+  #     - 8000:3000
+  #   volumes:
+  #     - ./api-gateway/:/app
+  #   networks:
+  #     - pfa
 
   appointment:
-    container_name: appointment
-    build:
-      context: ./appointment/
-    command: "npm run start:dev"
-    ports:
-      - 8001:3000
+    # container_name: appointment
+    # build:
+    #   context: ./appointment/
+    # command: "npm run start:dev"
+    # ports:
+    #   - 8001:3000
     volumes:
       - ./appointment/:/app
-    networks:
-      - pfa
+    # networks:
+    #   - pfa
     env_file:
       - ./global.env
     environment:
@@ -33,35 +33,35 @@ services:
       - DATABASE_LINK=appointment_mongodb:27017
 
   appointment_mongodb:
-    container_name: appointment_mongodb
-    image: mongo
+    # container_name: appointment_mongodb
+    # image: mongo
     # ports:
     #   - 27017:27017
     volumes:
       - appointmentMongodbData:/data/db
-    networks:
-      - pfa
-    environment:
-      - MONGO_INITDB_DATABASE=appointments
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    # networks:
+    #   - pfa
+    # environment:
+    # - MONGO_INITDB_DATABASE=appointments
+    # - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+    # - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
 
-  appointment_mongo_express:
-    container_name: appointment_mongo_express
-    image: mongo-express
-    depends_on:
-      - appointment_mongodb
-    restart: always
-    networks:
-      - pfa
-    environment:
-      - ME_CONFIG_MONGODB_SERVER=appointment_mongodb
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_INITDB_ROOT_USERNAME}
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-      - ME_CONFIG_BASICAUTH_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-      - ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-    ports:
-      - "8081:8081"
+  # appointment_mongo_express:
+  # container_name: appointment_mongo_express
+  # image: mongo-express
+  # depends_on:
+  #   - appointment_mongodb
+  # restart: always
+  # networks:
+  #   - pfa
+  # environment:
+  #   - ME_CONFIG_MONGODB_SERVER=appointment_mongodb
+  #   - ME_CONFIG_MONGODB_ADMINUSERNAME=${MONGO_INITDB_ROOT_USERNAME}
+  #   - ME_CONFIG_MONGODB_ADMINPASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+  #   - ME_CONFIG_BASICAUTH_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+  #   - ME_CONFIG_BASICAUTH_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+  # ports:
+  # - "8081:8081"
 
   auth:
     container_name: auth
