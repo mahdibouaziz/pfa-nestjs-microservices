@@ -15,7 +15,7 @@ pipeline {
             steps {
                 script {
                     // echo "Testing the application"
-                    gv.buildImage()
+                    gv.testApp()
                 }
             }
         }
