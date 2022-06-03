@@ -14,11 +14,15 @@ const url = 'http://auth:3000';
 @Injectable()
 export class AuthService {
   async registerDoctor(registerDoctorDto: RegisterDoctorDto, authorization) {
-    return await postRequest(
-      `${url}/doctor/register`,
-      registerDoctorDto,
-      authorization,
-    );
+    try {
+      return await postRequest(
+        `${url}/doctor/register`,
+        registerDoctorDto,
+        authorization,
+      );
+    } catch (error) {
+      return error.response.data;
+    }
   }
 
   async loginDoctor(loginDoctorDto: LoginDoctorDto, authorization) {
