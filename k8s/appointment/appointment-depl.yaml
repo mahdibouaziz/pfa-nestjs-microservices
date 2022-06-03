@@ -17,6 +17,27 @@ spec:
           image: mahdibouaziz/appointment
           ports:
             - containerPort: 3000
+          env:
+            - name: DATABASE_USER
+              value: admin
+            - name: DATABASE_PASSWORD
+              value: admin
+            - name: DATABASE_NAME
+              value: appointments
+            - name: DATABASE_TEST_NAME
+              value: test_appointment
+            - name: DATABASE_LINK
+              value: appointment_mongodb:27017
+            - name: RABBITMQ_USER
+              value: guest
+            - name: RABBITMQ_PASSWORD
+              value: guest
+            - name: RABBITMQ_HOST
+              value: rabbitmq:5672
+            - name: RABBITMQ_AUTH_QUEUE_NAME
+              value: auth_queue
+            - name: RABBITMQ_APPOINTMENT_QUEUE_NAME
+              value: appointment_queue
 
 ---
 apiVersion: v1
