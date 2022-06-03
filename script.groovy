@@ -6,9 +6,11 @@ def testApp() {
 def buildImage() {
     echo "building the docker image..."
     withCredentials([usernamePassword(credentialsId: 'DockerHub-credentials', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-        sh 'docker build -t mahdibouaziz/aerosoft-microservices .'
+
+
+        sh 'docker build -f api-gateway/Dockerfile -t mahdibouaziz/api-gateway .'
         sh "echo $PASS | docker login -u $USER --password-stdin"
-        sh 'docker push mahdibouaziz/aerosoft-microservices'
+        sh 'docker push mahdibouaziz/api-gateway'
     }
 } 
 
