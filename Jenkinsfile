@@ -14,8 +14,8 @@ pipeline {
          stage("test") {
             steps {
                 script {
-                    echo "Testing the application"
-                    //gv.buildImage()
+                    // echo "Testing the application"
+                    gv.buildImage()
                 }
             }
         }
@@ -23,16 +23,16 @@ pipeline {
         stage("build image") {
             steps {
                 script {
-                    echo "building image"
-                    //gv.buildImage()
+                    // echo "building image"
+                    gv.buildImage()
                 }
             }
         }
         stage("deploy") {
             steps {
                 script {
-                    echo "deploying"
-                    //gv.deployApp()
+                    // echo "deploying"
+                    gv.deployApp()
                 }
             }
         }
