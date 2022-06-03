@@ -1,18 +1,40 @@
+def gv
+
 pipeline {
     agent any
     stages {
-        stage ('Build and Test') {
+        stage("init") {
             steps {
-                echo 'building the images...'
-                //sh 'docker build -t marwenhihi/tokenservice:1.0 -f token/Dockerfile .'
-                // sh 'docker build -t marwenhihi/eventservice:1.0 -f event/Dockerfile .'
-                //sh 'docker build -t marwenhihi/reviewservice:1.0 -f review/Dockerfile .'
-                //sh 'docker build -t marwenhihi/userservice:1.0 -f user/Dockerfile .'
-                //sh 'docker build -t marwenhihi/kong:1.0 -f kong/Dockerfile .' 
-            
-
+                script {
+                    gv = load "script.groovy"
+                }
             }
-        }  
+        }
 
-    }
+         stage("test") {
+            steps {
+                script {
+                    echo "Testing the application"
+                    //gv.buildImage()
+                }
+            }
+        }
+
+        stage("build image") {
+            steps {
+                script {
+                    echo "building image"
+                    //gv.buildImage()
+                }
+            }
+        }
+        stage("deploy") {
+            steps {
+                script {
+                    echo "deploying"
+                    //gv.deployApp()
+                }
+            }
+        }
+    }   
 }
