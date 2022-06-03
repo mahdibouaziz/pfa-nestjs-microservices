@@ -1,0 +1,28 @@
+FROM node:16-alpine As development
+
+WORKDIR /app
+
+COPY api-gateway/package*.json /app/
+
+RUN npm install --only=development
+
+COPY api-gateway/ .
+
+RUN npm run build
+
+FROM node:16-alpine As production
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+
+WORKDIR /app
+
+COPY api-gateway/package*.json /app/
+
+RUN npm install --only=production
+
+COPY api-gateway/ .
+
+COPY --from=development /app/dist ./dist
+
+CMD ["node", "dist/main"]
