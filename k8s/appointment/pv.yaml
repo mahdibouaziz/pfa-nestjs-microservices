@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: azure-disk-pv
+spec:
+  capacity:
+    storage: 5Gi
+  storageClassName: "pfa"
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  azureDisk:
+    kind: Managed
+    diskName: k8s_volume_pfa
+    diskURI: "/subscriptions/be9726d2-bd74-4670-98a6-51cee08d86c9/resourceGroups/ppp-mta3-nie/providers/Microsoft.Compute/disks/k8s_volume_pfa"
+    fsType: ext4
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: azure-disk-pvc
+spec:
+  storageClassName: "pfa"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
