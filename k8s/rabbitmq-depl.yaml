@@ -38,4 +38,4 @@ spec:
       protocol: TCP
       port: 15672 #service port
       targetPort: 15672 #pod port
-      nodePort: 30005 #Node Port
+      nodePort: 30003 #Node Port

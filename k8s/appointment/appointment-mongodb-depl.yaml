@@ -93,4 +93,4 @@ spec:
       protocol: TCP
       port: 8081 #service port
       targetPort: 8081 #pod port
-      nodePort: 30001
+      nodePort: 30002
