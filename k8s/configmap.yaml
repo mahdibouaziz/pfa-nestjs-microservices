@@ -15,10 +15,12 @@ data:
   APPOINTMENT_DATABASE_NAME: "appointments"
   APPOINTMENT_DATABASE_TEST_NAME: "test_appointment"
   APPOINTMENT_DATABASE_LINK: "appointment-mongodb-srv:27017"
+  APPOINTMENT_DATABASE_SVC: "appointment-mongodb-srv"
 
   AUTH_DATABASE_NAME: "auths"
   AUTH_DATABASE_TEST_NAME: "test_auth"
   AUTH_DATABASE_LINK: "auth-mongodb-srv:27017"
+  AUTH_DATABASE_SVC: "auth-mongodb-srv"
 
   APPOINTMENT_SVC: "appointment-srv"
   AUTH_SVC: "auth-srv"
