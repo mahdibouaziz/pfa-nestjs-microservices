@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: mahdibouaziz/auth
+          image: mahdibouaziz/auth:1.0.0
           ports:
             - containerPort: 3000
           env:
@@ -72,11 +72,11 @@ spec:
                   name: config-map
                   key: RABBITMQ_AUTH_QUEUE_NAME
 
-            - name: RABBITMQ_AUTH_QUEUE_NAME
+            - name: RABBITMQ_APPOINTMENT_QUEUE_NAME
               valueFrom:
                 configMapKeyRef:
                   name: config-map
-                  key: RABBITMQ_AUTH_QUEUE_NAME
+                  key: RABBITMQ_APPOINTMENT_QUEUE_NAME
 
 ---
 apiVersion: v1
