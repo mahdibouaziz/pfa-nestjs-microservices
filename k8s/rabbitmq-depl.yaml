@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+        - name: rabbitmq
+          image: rabbitmq:3.9.15-management-alpine
+          ports:
+            - containerPort: 5672
+            - containerPort: 15672
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-srv
+spec:
+  type: NodePort
+  selector:
+    app: rabbitmq
+  ports:
+    - name: rabbitmq
+      protocol: TCP
+      port: 5672 #service port
+      targetPort: 5672 #pod port
+      # nodePort: 5672 #Node Port
+    - name: rabbitmq-ui
+      protocol: TCP
+      port: 15672 #service port
+      targetPort: 15672 #pod port
+      nodePort: 30005 #Node Port

@@ -114,33 +114,33 @@ services:
     ports:
       - "8082:8081"
 
-  chat:
-    container_name: chat
-    build:
-      context: ./chat/
-    command: "npm run start:dev"
-    ports:
-      - 8003:3001
-    volumes:
-      - ./chat/:/app
-    networks:
-      - pfa
-    env_file:
-      - ./global.env
+  # chat:
+  #   container_name: chat
+  #   build:
+  #     context: ./chat/
+  #   command: "npm run start:dev"
+  #   ports:
+  #     - 8003:3001
+  #   volumes:
+  #     - ./chat/:/app
+  #   networks:
+  #     - pfa
+  #   env_file:
+  #     - ./global.env
 
   rabbitmq:
     # default username and password are 'guest'
-    container_name: rabbitmq
-    image: rabbitmq:3.9.15-management-alpine
-    ports:
-      - "5672:5672" # Port for microservices applicaiton to connect to
-      - "15672:15672" # Port for management UI interface
+    # container_name: rabbitmq
+    # image: rabbitmq:3.9.15-management-alpine
+    # ports:
+    #   - "5672:5672" # Port for microservices applicaiton to connect to
+    #   - "15672:15672" # Port for management UI interface
     volumes:
       - rabbitmqPfaData:/var/lib/rabbitmq/
       - rabbitmqPfaLog:/var/log/rabbitmq
-    networks:
-      - pfa
-    # I need to provide credentials to rabbitMQ
+    # networks:
+    #   - pfa
+  # I need to provide credentials to rabbitMQ
 
 networks:
   pfa:
