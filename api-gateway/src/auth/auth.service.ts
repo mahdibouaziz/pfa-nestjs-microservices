@@ -16,6 +16,8 @@ const url = process.env.AUTH_SVC
 @Injectable()
 export class AuthService {
   async registerDoctor(registerDoctorDto: RegisterDoctorDto, authorization) {
+    console.log('INSIDE: ', process.env.AUTH_SVC);
+    console.log('url', url);
     try {
       return await postRequest(
         `${url}/doctor/register`,
