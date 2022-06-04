@@ -5,7 +5,7 @@ metadata:
 data:
   RABBITMQ_USER: "guest"
   RABBITMQ_PASSWORD: "guest"
-  RABBITMQ_HOST: "rabbitmq:5672"
+  RABBITMQ_HOST: "rabbitmq-srv:5672"
   RABBITMQ_AUTH_QUEUE_NAME: "auth_queue"
   RABBITMQ_APPOINTMENT_QUEUE_NAME: "appointment_queue"
 
@@ -14,11 +14,11 @@ data:
 
   APPOINTMENT_DATABASE_NAME: "appointments"
   APPOINTMENT_DATABASE_TEST_NAME: "test_appointment"
-  APPOINTMENT_DATABASE_LINK: "appointment_mongodb:27017"
+  APPOINTMENT_DATABASE_LINK: "appointment-mongodb-srv:27017"
 
   AUTH_DATABASE_NAME: "auths"
   AUTH_DATABASE_TEST_NAME: "test_auth"
-  AUTH_DATABASE_LINK: "auth_mongodb:27017"
+  AUTH_DATABASE_LINK: "auth-mongodb-srv:27017"
 
   APPOINTMENT_SVC: "appointment-srv"
   AUTH_SVC: "auth-srv"
