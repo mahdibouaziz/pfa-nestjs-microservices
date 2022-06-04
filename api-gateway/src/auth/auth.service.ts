@@ -9,7 +9,9 @@ import { LoginPatientDto } from './dto/login-patient.dto';
 import { RegisterDoctorDto } from './dto/register-doctor.dto';
 import { RegisterPatientDto } from './dto/register-patient.dto';
 
-const url = 'http://auth:3000';
+const url = process.env.AUTH_SVC
+  ? `http://${process.env.AUTH_SVC}:3000`
+  : 'http://auth:3000';
 
 @Injectable()
 export class AuthService {

@@ -3,8 +3,13 @@ import { getRequest, postRequest } from 'src/request-utils/request-util';
 import { RegisterAppointmentDto } from './dto/register-appointment.dto';
 import { RegisterDoctorAvailabilityDto } from './dto/register-doctor-availability.dto';
 
-const url = 'http://appointment:3000';
-const authUrl = 'http://auth:3000/authenticate';
+const url = process.env.APPOINTMENT_SVC
+  ? `http://${process.env.APPOINTMENT_SVC}:3000`
+  : 'http://appointment:3000';
+
+const authUrl = process.env.AUTH_SVC
+  ? `http://${process.env.AUTH_SVC}:3000/authenticate`
+  : 'http://auth:3000/authenticate';
 
 @Injectable()
 export class AppointmentService {

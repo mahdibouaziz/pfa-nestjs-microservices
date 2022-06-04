@@ -19,3 +19,6 @@ data:
   AUTH_DATABASE_NAME: "auths"
   AUTH_DATABASE_TEST_NAME: "test_auth"
   AUTH_DATABASE_LINK: "auth_mongodb:27017"
+
+  APPOINTMENT_SVC: "appointment-srv"
+  AUTH_SVC: "auth-srv"

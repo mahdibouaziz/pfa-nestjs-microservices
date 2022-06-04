@@ -17,6 +17,17 @@ spec:
           image: mahdibouaziz/api-gateway
           ports:
             - containerPort: 3000
+          env:
+            - name: APPOINTMENT_SVC
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: APPOINTMENT_SVC
+            - name: AUTH_SVC
+              valueFrom:
+                configMapKeyRef:
+                  name: config-map
+                  key: AUTH_SVC
 
 ---
 apiVersion: v1
